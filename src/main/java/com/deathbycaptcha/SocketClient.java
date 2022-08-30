@@ -20,10 +20,8 @@ import java.util.Random;
 
 /**
  * Death by Captcha socket API client.
- *
  */
-public class SocketClient extends Client
-{
+public class SocketClient extends Client {
     final static public String HOST = "api.dbcapi.me";
     final static public int FIRST_PORT = 8123;
     final static public int LAST_PORT = 8123;
@@ -37,10 +35,9 @@ public class SocketClient extends Client
 
 
     protected String sendAndReceive(byte[] payload)
-        throws IOException
-    {
+            throws IOException {
         ByteBuffer sbuf = ByteBuffer.wrap(payload);
-        ByteBuffer rbuf = ByteBuffer.allocateDirect(256);
+        ByteBuffer rbuf = ByteBuffer.allocateDirect(5120);
         CharsetDecoder rbufDecoder = Charset.forName("UTF-8").newDecoder();
         StringBuilder response = new StringBuilder();
 
@@ -55,17 +52,16 @@ public class SocketClient extends Client
             int intvl_idx = 0;
             int intvl = 0;
             int[] results = {0, 0};
-            
+
             while (true) {
                 results = Client.getPollInterval(intvl_idx);
                 intvl = results[0];
                 intvl_idx = results[1];
-
                 if (0 < selector.select(intvl * 1000)) {
                     Iterator keys = selector.selectedKeys().iterator();
                     while (keys.hasNext()) {
-                        SelectionKey key = (SelectionKey)keys.next();
-                        SocketChannel ch = (SocketChannel)key.channel();
+                        SelectionKey key = (SelectionKey) keys.next();
+                        SocketChannel ch = (SocketChannel) key.channel();
                         if (key.isConnectable()) {
                             // Just connected
                             ch.finishConnect();
@@ -104,8 +100,7 @@ public class SocketClient extends Client
     /**
      * @see com.DeathByCaptcha.Client#close
      */
-    public void close()
-    {
+    public void close() {
         if (null != this.channel) {
             this.log("CLOSE");
 
@@ -138,8 +133,7 @@ public class SocketClient extends Client
      * @see com.DeathByCaptcha.Client#connect
      */
     public boolean connect()
-        throws IOException
-    {
+            throws IOException {
         if (null == this.channel) {
             this.log("OPEN");
 
@@ -155,10 +149,10 @@ public class SocketClient extends Client
             channel.configureBlocking(false);
             try {
                 channel.connect(new InetSocketAddress(
-                    host,
-                    SocketClient.FIRST_PORT + new Random().nextInt(
-                        SocketClient.LAST_PORT - SocketClient.FIRST_PORT + 1
-                    )
+                        host,
+                        SocketClient.FIRST_PORT + new Random().nextInt(
+                                SocketClient.LAST_PORT - SocketClient.FIRST_PORT + 1
+                        )
                 ));
             } catch (IOException e) {
                 throw new IOException("API connection failed");
@@ -172,8 +166,7 @@ public class SocketClient extends Client
 
 
     protected JSONObject call(String cmd, JSONObject args)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
+            throws IOException, com.DeathByCaptcha.Exception {
         try {
             args.put("cmd", cmd).put("version", Client.API_VERSION);
         } catch (JSONException e) {
@@ -211,51 +204,45 @@ public class SocketClient extends Client
             synchronized (this.callLock) {
                 this.close();
             }
-            if (error.equals("not-logged-in")) {
-                throw new AccessDeniedException("Access denied, check your credentials");
-            } else if (error.equals("banned")) {
-                throw new AccessDeniedException("Access denied, account is suspended");
-            } else if (error.equals("insufficient-funds")) {
-                throw new AccessDeniedException("Access denied, balance is too low");
-            } else if (error.equals("invalid-captcha")) {
-                throw new InvalidCaptchaException("CAPTCHA was rejected by the service, check if it's a valid image");
-            } else if (error.equals("service-overload")) {
-                throw new ServiceOverloadException("CAPTCHA was rejected due to service overload, try again later");
-            } else {
-                throw new IOException("API server error occured: " + error);
+            switch (error) {
+                case "not-logged-in":
+                    throw new AccessDeniedException("Access denied, check your credentials");
+                case "banned":
+                    throw new AccessDeniedException("Access denied, account is suspended");
+                case "insufficient-funds":
+                    throw new AccessDeniedException("Access denied, balance is too low");
+                case "invalid-captcha":
+                    throw new InvalidCaptchaException("CAPTCHA was rejected by the service, check if it's a valid image");
+                case "service-overload":
+                    throw new ServiceOverloadException("CAPTCHA was rejected due to service overload, try again later");
+                default:
+                    throw new IOException("API server error occured: " + error);
             }
         } else {
             return response;
         }
     }
 
-    {
-   }
-
     protected JSONObject call(String cmd)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
+            throws IOException, com.DeathByCaptcha.Exception {
         return this.call(cmd, new JSONObject());
     }
 
 
     /**
-     * @see com.DeathByCaptcha.Client#Client(String, String)
      * @param username username
      * @param password password
+     * @see com.DeathByCaptcha.Client#Client(String, String)
      */
-    public SocketClient(String username, String password)
-    {
+    public SocketClient(String username, String password) {
         super(username, password);
     }
 
-    public SocketClient(String authtoken)
-    {
+    public SocketClient(String authtoken) {
         super(authtoken);
     }
 
-    public void finalize()
-    {
+    public void finalize() {
         this.close();
     }
 
@@ -264,8 +251,7 @@ public class SocketClient extends Client
      * @see com.DeathByCaptcha.Client#getUser
      */
     public User getUser()
-        throws IOException, com.DeathByCaptcha.Exception
-    {
+            throws IOException, com.DeathByCaptcha.Exception {
         return new User(this.call("user"));
     }
 
@@ -273,21 +259,20 @@ public class SocketClient extends Client
      * @see com.DeathByCaptcha.Client#upload
      */
     public Captcha upload(byte[] img, String challenge, int type, byte[] banner, String banner_text, String grid)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
+            throws IOException, com.DeathByCaptcha.Exception {
         JSONObject args = new JSONObject();
         try {
             args.put("captcha",
-                Base64.encodeBytes(img)).put(
-                "swid",Client.SOFTWARE_VENDOR_ID).put(
-                "challenge", challenge).put(
-                "grid", grid).put(
-                "type", Integer.toString(type)).put(
-                "banner_text", banner_text);
-            if (banner!=null) {
+                    Base64.encodeBytes(img)).put(
+                    "swid", Client.SOFTWARE_VENDOR_ID).put(
+                    "challenge", challenge).put(
+                    "grid", grid).put(
+                    "type", Integer.toString(type)).put(
+                    "banner_text", banner_text);
+            if (banner != null) {
                 args.put("banner",
-                    Base64.encodeBytes(banner));
-                }
+                        Base64.encodeBytes(banner));
+            }
         } catch (JSONException e) {
             //System.out.println(e);
         }
@@ -296,36 +281,44 @@ public class SocketClient extends Client
     }
 
     public Captcha upload(byte[] img, String challenge, int type, byte[] banner, String banner_text)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
-        return this.upload(img,challenge,type,banner,banner_text, "");
+            throws IOException, com.DeathByCaptcha.Exception {
+        return this.upload(img, challenge, type, banner, banner_text, "");
     }
 
     public Captcha upload(byte[] img, int type, byte[] banner, String banner_text)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
-        return this.upload(img,type,banner,banner_text);
+            throws IOException, com.DeathByCaptcha.Exception {
+        return null;
     }
 
     public Captcha upload(byte[] img)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
-        return this.upload(img,"",0,null,"");
+            throws IOException, com.DeathByCaptcha.Exception {
+        return this.upload(img, "", 0, null, "");
     }
 
     public Captcha upload(int type, JSONObject json)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
-        
+            throws IOException, com.DeathByCaptcha.Exception {
+        String extra_data_name;
+        switch (type) {
+            case 6:
+                extra_data_name = "funcaptcha_params";
+                break;
+            case 7:
+                extra_data_name = "hcaptcha_params";
+                break;
+            default:
+                extra_data_name = "token_params";
+                break;
+        }
         JSONObject args = new JSONObject();
         try {
-            args.put("swid",Client.SOFTWARE_VENDOR_ID).put(
-                "type", Integer.toString(type)).put(
-                "token_params", json);
-            
+            args.put("swid", Client.SOFTWARE_VENDOR_ID).put(
+                    "type", Integer.toString(type)).put(
+                    extra_data_name, json);
+
         } catch (JSONException e) {
             //System.out.println(e);
         }
+        System.out.println(args);
         Captcha c = new Captcha(this.call("upload", args));
         return c.isUploaded() ? c : null;
     }
@@ -335,8 +328,7 @@ public class SocketClient extends Client
      * @see com.DeathByCaptcha.Client#getCaptcha
      */
     public Captcha getCaptcha(int id)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
+            throws IOException, com.DeathByCaptcha.Exception {
         JSONObject args = new JSONObject();
         try {
             args.put("captcha", id);
@@ -350,8 +342,7 @@ public class SocketClient extends Client
      * @see com.DeathByCaptcha.Client#report
      */
     public boolean report(int id)
-        throws IOException, com.DeathByCaptcha.Exception
-    {
+            throws IOException, com.DeathByCaptcha.Exception {
         JSONObject args = new JSONObject();
         try {
             args.put("captcha", id);

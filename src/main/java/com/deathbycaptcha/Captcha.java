@@ -1,26 +1,22 @@
 package com.DeathByCaptcha;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
 /**
  * CAPTCHA details.
- *
  */
-public class Captcha
-{
+public class Captcha {
     public int id = 0;
     public String text = "";
 
     protected boolean correct = false;
 
 
-    public Captcha()
-    {}
+    public Captcha() {
+    }
 
-    public Captcha(JSONObject src)
-    {
+    public Captcha(JSONObject src) {
         this();
         this.id = Math.max(0, src.optInt("captcha", 0));
         if (0 < this.id) {
@@ -33,33 +29,27 @@ public class Captcha
     }
 
 
-    public boolean isUploaded()
-    {
+    public boolean isUploaded() {
         return 0 < this.id;
     }
 
-    public boolean isSolved()
-    {
+    public boolean isSolved() {
         return !this.text.equals("");
     }
 
-    public boolean isCorrect()
-    {
+    public boolean isCorrect() {
         return this.isSolved() && this.correct;
     }
 
-    public int toInt()
-    {
+    public int toInt() {
         return this.id;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return this.text;
     }
 
-    public boolean toBoolean()
-    {
+    public boolean toBoolean() {
         return this.isCorrect();
     }
 }

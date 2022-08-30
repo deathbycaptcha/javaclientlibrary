@@ -3,7 +3,7 @@
 
     <groupId>io.github.deathbycaptcha</groupId>
     <artifactId>deathbycaptcha-java-library</artifactId>
-    <version>0.43-snapshot</version>
+    <version>0.43</version>
     <packaging>jar</packaging>
 
     <name>DeathByCaptcha library for Java</name>

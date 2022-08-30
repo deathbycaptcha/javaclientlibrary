@@ -33,7 +33,7 @@
         <connection>scm:git:git://github.com/deathbycaptcha/javaclientlibrary.git</connection>
         <developerConnection>scm:git:ssh://github.com:deathbycaptcha/javaclientlibrary.git</developerConnection>
         <url>http://github.com/deathbycaptcha/javaclientlibrary/tree/master</url>
-      <tag>deathbycaptcha-java-library-0.43</tag>
+      <tag>deathbycaptcha-java-library-0.44</tag>
   </scm>
 
     <distributionManagement>

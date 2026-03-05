@@ -26,6 +26,20 @@ java_lts_tests:
   before_script:
     - java -version
     - |
+      if [ -f .env ]; then
+        while IFS='=' read -r key value; do
+          [ -z "$key" ] && continue
+          case "$key" in \#*) continue ;; esac
+          value="${value%\"}"
+          value="${value#\"}"
+          value="${value%\'}"
+          value="${value#\'}"
+          if [ "$key" = "DBC_USERNAME" ] || [ "$key" = "DBC_PASSWORD" ]; then
+            export "$key=$value"
+          fi
+        done < .env
+      fi
+    - |
       if ! command -v mvn >/dev/null 2>&1; then
         MAVEN_VERSION="3.9.9"
         MAVEN_DIR="$CI_PROJECT_DIR/.maven"

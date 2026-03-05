@@ -2,6 +2,27 @@
 
 This guide summarizes practical SDK usage for Java application integrations.
 
+## Install from Maven Central
+
+Use this dependency in your Maven project:
+
+```xml
+<dependency>
+    <groupId>io.github.deathbycaptcha</groupId>
+    <artifactId>deathbycaptcha-java-library</artifactId>
+    <version>4.6.6</version>
+</dependency>
+```
+
+Optional online fetch verification:
+
+```bash
+mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.7.1:get \
+    -Dartifact=io.github.deathbycaptcha:deathbycaptcha-java-library:4.6.6 \
+    -Dtransitive=false \
+    -DremoteRepositories=central::default::https://repo1.maven.org/maven2
+```
+
 ## Authentication
 
 ### Option A: username + password

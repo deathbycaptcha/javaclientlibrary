@@ -1,0 +1,52 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+## [4.6.6] - 2026-03-05
+
+### Added
+
+- Online Maven integration test in `src/test/java/com/DeathByCaptcha/OnlineMavenBalanceIntegrationTest.java` to validate:
+  - Resolution of `io.github.deathbycaptcha:deathbycaptcha-java-library:4.6.6` from Maven Central.
+  - Balance check flow using a temporary Maven project.
+  - Isolated local Maven repository during test execution.
+- Online API integration test in `src/test/java/com/DeathByCaptcha/OnlineGitBasicApiIntegrationTest.java` (uses current git source) to validate:
+  - `connect()` and user retrieval (`getUser()`).
+  - `getBalance()` with non-negative assertion.
+  - Text captcha upload (`type=0`), polling by `getCaptcha()`, and solved text retrieval.
+- Local helper script `run-tests.sh` to load credentials from `.env` safely and run Maven commands.
+- Root `CHANGELOG.md`.
+
+### Changed
+
+- `.gitlab-ci.yml`
+  - Added `.env` loading support for `DBC_USERNAME` and `DBC_PASSWORD` in `before_script`.
+  - Kept Maven execution aligned with CI matrix across Java 17/21/25.
+- `.github/workflows/java-lts-tests.yml`
+  - Expanded from matrix-only run to explicit jobs:
+    - `test-java17`, `test-java21`, `test-java25`
+    - `coverage` job that computes coverage percentage and writes `.coverage/badge.json`
+    - `badges` job that generates `.badges/java17|java21|java25/badge.json`
+  - Added automatic badge commits on `main`/`master` pushes.
+- `README.md`
+  - Added GitHub Actions and coverage badges (same badge strategy used in the PHP client project).
+  - Added CI status section with per-Java-version badges.
+  - Added direct link to Maven Central online usage docs.
+- `.env.example`
+  - Simplified to minimum required credentials (`DBC_USERNAME`, `DBC_PASSWORD`).
+
+### Documentation
+
+- `docs/getting-started.md`
+  - Added Maven Central online dependency usage (`io.github.deathbycaptcha:deathbycaptcha-java-library:4.6.6`).
+  - Added online artifact resolution command via `maven-dependency-plugin:get`.
+  - Added integration test execution examples (`OnlineMavenBalanceIntegrationTest`, `OnlineGitBasicApiIntegrationTest`).
+- `docs/library-usage.md`
+  - Added Maven Central installation section with dependency snippet and online resolution check.
+- `docs/README.md`
+  - Added explicit Maven Central online usage entry and updated recommended docs path.
+
+### Notes
+
+- Maven Central (`repo1.maven.org`) already serves version `4.6.6`.
+- Third-party indexers (e.g. MvnRepository) may take additional time to reflect new versions.

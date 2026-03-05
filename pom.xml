@@ -11,12 +11,12 @@
 
   <name>DeathByCaptcha library for Java</name>
   <description>DeathByCaptcha Java library v4.6.6 (unified package: core SDK + full samples + Selenium integration in one artifact)</description>
-  <url>https://github.com/deathbycaptcha/javaclientlibrary</url>
+  <url>https://github.com/deathbycaptcha/deathbycaptcha-api-client-java</url>
 
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>https://github.com/deathbycaptcha/javaclientlibrary/blob/main/LICENSE</url>
+      <url>https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/blob/main/LICENSE</url>
     </license>
   </licenses>
 
@@ -30,9 +30,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/deathbycaptcha/javaclientlibrary.git</connection>
-    <developerConnection>scm:git:git@github.com:deathbycaptcha/javaclientlibrary.git</developerConnection>
-    <url>https://github.com/deathbycaptcha/javaclientlibrary/tree/main</url>
+    <connection>scm:git:git://github.com/deathbycaptcha/deathbycaptcha-api-client-java.git</connection>
+    <developerConnection>scm:git:git@github.com:deathbycaptcha/deathbycaptcha-api-client-java.git</developerConnection>
+    <url>https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/tree/main</url>
     <tag>HEAD</tag>
   </scm>
 

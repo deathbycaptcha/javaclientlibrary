@@ -115,6 +115,10 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <doclint>none</doclint>
+          <additionalparam>-Xdoclint:none</additionalparam>
+        </configuration>
       </plugin>
 
       <!-- Maven Source Plugin -->

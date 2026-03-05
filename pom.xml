@@ -1,132 +1,190 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <groupId>io.github.deathbycaptcha</groupId>
-    <artifactId>deathbycaptcha-java-library</artifactId>
-    <version>0.44-SNAPSHOT</version>
-    <packaging>jar</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <name>DeathByCaptcha library for Java</name>
-    <description>
-        DeathByCaptcha library for Java
-    </description>
+  <groupId>io.github.deathbycaptcha</groupId>
+  <artifactId>deathbycaptcha-java-library</artifactId>
+  <version>4.6.6</version>
+  <packaging>jar</packaging>
 
-    <url>https://github.com/deathbycaptcha/javaclientlibrary</url>
+  <name>DeathByCaptcha library for Java</name>
+  <description>DeathByCaptcha Java library v4.6.6 (unified package: core SDK + full samples + Selenium integration in one artifact)</description>
+  <url>https://github.com/deathbycaptcha/javaclientlibrary</url>
 
-    <licenses>
-        <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://github.com/deathbycaptcha/javaclientlibrary/blob/main/LICENSE</url>
+    </license>
+  </licenses>
 
-    <developers>
-        <developer>
-            <name>DeathByCaptcha core developers</name>
-            <email>deathbycaptcha@protonmail.com</email>
-            <organization>DeathByCaptcha</organization>
-            <organizationUrl>https://www.deathbycaptcha.com</organizationUrl>
-        </developer>
-    </developers>
+  <developers>
+    <developer>
+      <name>DeathByCaptcha core developers</name>
+      <email>deathbycaptcha@protonmail.com</email>
+      <organization>DeathByCaptcha</organization>
+      <organizationUrl>https://www.deathbycaptcha.com</organizationUrl>
+    </developer>
+  </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/deathbycaptcha/javaclientlibrary.git</connection>
-        <developerConnection>scm:git:git@github.com-deathbycaptcha:deathbycaptcha/javaclientlibrary.git</developerConnection>
-        <url>http://github.com/deathbycaptcha/javaclientlibrary/tree/master</url>
-      <tag>deathbycaptcha-java-library-0.43</tag>
+  <scm>
+    <connection>scm:git:git://github.com/deathbycaptcha/javaclientlibrary.git</connection>
+    <developerConnection>scm:git:git@github.com:deathbycaptcha/javaclientlibrary.git</developerConnection>
+    <url>https://github.com/deathbycaptcha/javaclientlibrary/tree/main</url>
+    <tag>deathbycaptcha-java-library-4.6.6</tag>
   </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.release>21</java.release>
+    <maven.compiler.source>${java.release}</maven.compiler.source>
+    <maven.compiler.target>${java.release}</maven.compiler.target>
+    <maven.compiler.release>${java.release}</maven.compiler.release>
+    <selenium.version>4.2.1</selenium.version>
+  </properties>
 
+  <dependencies>
+    <!-- Selenium WebDriver for browser automation -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>${selenium.version}</version>
+        <optional>true</optional>
+    </dependency>
 
-    <build>
-        <plugins>
+    <!-- JUnit for testing (optional) -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
+  <build>
+    <plugins>
+      <!-- Maven Compiler Plugin -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>${java.release}</release>
+          <compilerArgs>
+            <arg>-Xlint:deprecation</arg>
+          </compilerArgs>
+       </configuration>
+      </plugin>
 
+      <!-- Maven JAR Plugin -->
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>examples.Program</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
 
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+      <!-- Maven Exec Plugin for running examples -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <mainClass>examples.ExampleGetBalance</mainClass>
+        </configuration>
+      </plugin>
 
+      <!-- Maven Javadoc Plugin -->
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
+      <!-- Maven Source Plugin -->
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+      <!-- Maven Surefire Plugin for tests -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+      </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+      <!-- Maven Clean Plugin -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+      <!-- Maven Resources Plugin -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+      </plugin>
 
+      <!-- Maven Install Plugin -->
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>
 
-        </plugins>
-    </build>
+      <!-- Maven Deploy Plugin -->
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+      </plugin>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
+      <!-- Maven Site Plugin -->
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.9.1</version>
+      </plugin>
 
+      <!-- JaCoCo Plugin for Code Coverage -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.13</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

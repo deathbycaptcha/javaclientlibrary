@@ -237,7 +237,7 @@ public class JSONArray {
      *
      * @param index The index must be between 0 and length() - 1.
      * @return      The value.
-     * @throws   JSONException If the key is not found or if the value cannot
+     * @throws JSONException If the key is not found or if the value cannot
      *  be converted to a number.
      */
     public double getDouble(int index) throws JSONException {
@@ -258,7 +258,7 @@ public class JSONArray {
      *
      * @param index The index must be between 0 and length() - 1.
      * @return      The value.
-     * @throws   JSONException If the key is not found or if the value cannot
+     * @throws JSONException If the key is not found or if the value cannot
      *  be converted to a number.
      *  if the value cannot be converted to a number.
      */
@@ -308,7 +308,7 @@ public class JSONArray {
      *
      * @param index The index must be between 0 and length() - 1.
      * @return      The value.
-     * @throws   JSONException If the key is not found or if the value cannot
+     * @throws JSONException If the key is not found or if the value cannot
      *  be converted to a number.
      */
     public long getLong(int index) throws JSONException {

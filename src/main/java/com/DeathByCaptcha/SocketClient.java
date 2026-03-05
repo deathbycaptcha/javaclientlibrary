@@ -295,15 +295,58 @@ public class SocketClient extends Client {
         return this.upload(img, "", 0, null, "");
     }
 
+    public Captcha upload(int type, String audio, String language)
+            throws IOException, com.DeathByCaptcha.Exception {
+        JSONObject args = new JSONObject();
+        try {
+            args.put(
+                    "swid", Client.SOFTWARE_VENDOR_ID).put(
+                    "audio", audio).put(
+                    "language", language).put(
+                    "type", Integer.toString(type));
+        } catch (JSONException e) {
+            //System.out.println(e);
+        }
+        Captcha c = new Captcha(this.call("upload", args));
+        return c.isUploaded() ? c : null;
+    }
+
     public Captcha upload(int type, JSONObject json)
             throws IOException, com.DeathByCaptcha.Exception {
         String extra_data_name;
         switch (type) {
-            case 6:
-                extra_data_name = "funcaptcha_params";
+            case 8:
+                extra_data_name = "geetest_params";
                 break;
-            case 7:
-                extra_data_name = "hcaptcha_params";
+            case 9:
+                extra_data_name = "geetest_params";
+                break;
+            case 12:
+                extra_data_name = "turnstile_params";
+                break;
+            case 14:
+                extra_data_name = "lemin_params";
+                break;
+            case 16:
+                extra_data_name = "waf_params";
+                break;
+            case 17:
+                extra_data_name = "siara_params";
+                break;
+            case 18:
+                extra_data_name = "mtcaptcha_params";
+                break;
+            case 19:
+                extra_data_name = "cutcaptcha_params";
+                break;
+            case 20:
+                extra_data_name = "friendly_params";
+                break;
+            case 23:
+                extra_data_name = "tencent_params";
+                break;
+            case 24:
+                extra_data_name = "atb_params";
                 break;
             default:
                 extra_data_name = "token_params";
@@ -314,6 +357,23 @@ public class SocketClient extends Client {
             args.put("swid", Client.SOFTWARE_VENDOR_ID).put(
                     "type", Integer.toString(type)).put(
                     extra_data_name, json);
+
+        } catch (JSONException e) {
+            //System.out.println(e);
+        }
+        System.out.println(args);
+        Captcha c = new Captcha(this.call("upload", args));
+        return c.isUploaded() ? c : null;
+    }
+
+    public Captcha upload(int type, String textcaptcha)
+            throws IOException, com.DeathByCaptcha.Exception {
+
+        JSONObject args = new JSONObject();
+        try {
+            args.put("swid", Client.SOFTWARE_VENDOR_ID).put(
+                    "type", Integer.toString(type)).put(
+                    "textcaptcha", textcaptcha);
 
         } catch (JSONException e) {
             //System.out.println(e);

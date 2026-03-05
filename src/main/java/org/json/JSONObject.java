@@ -27,13 +27,9 @@ SOFTWARE.
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeSet;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its
@@ -154,7 +150,7 @@ public class JSONObject {
      * Missing keys are ignored.
      * @param jo A JSONObject.
      * @param names An array of strings.
-     * @throws JSONException 
+     * @throws JSONException
      * @exception JSONException If a value is a non-finite number or if a name is duplicated.
      */
     public JSONObject(JSONObject jo, String[] names) {
@@ -234,7 +230,7 @@ public class JSONObject {
      *
      * @param map A map object that can be used to initialize the contents of
      *  the JSONObject.
-     * @throws JSONException 
+     * @throws JSONException
      */
     public JSONObject(Map map) {
         this.map = new HashMap();
@@ -397,7 +393,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      The object associated with the key.
-     * @throws   JSONException if the key is not found.
+     * @throws JSONException if the key is not found.
      */
     public Object get(String key) throws JSONException {
         Object o = opt(key);
@@ -414,7 +410,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      The truth.
-     * @throws   JSONException
+     * @throws JSONException
      *  if the value is not a Boolean or the String "true" or "false".
      */
     public boolean getBoolean(String key) throws JSONException {
@@ -458,7 +454,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      The integer value.
-     * @throws   JSONException if the key is not found or if the value cannot
+     * @throws JSONException if the key is not found or if the value cannot
      *  be converted to an integer.
      */
     public int getInt(String key) throws JSONException {
@@ -479,7 +475,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      A JSONArray which is the value.
-     * @throws   JSONException if the key is not found or
+     * @throws JSONException if the key is not found or
      *  if the value is not a JSONArray.
      */
     public JSONArray getJSONArray(String key) throws JSONException {
@@ -497,7 +493,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      A JSONObject which is the value.
-     * @throws   JSONException if the key is not found or
+     * @throws JSONException if the key is not found or
      *  if the value is not a JSONObject.
      */
     public JSONObject getJSONObject(String key) throws JSONException {
@@ -515,7 +511,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      The long value.
-     * @throws   JSONException if the key is not found or if the value cannot
+     * @throws JSONException if the key is not found or if the value cannot
      *  be converted to a long.
      */
     public long getLong(String key) throws JSONException {
@@ -580,7 +576,7 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      A string which is the value.
-     * @throws   JSONException if the key is not found.
+     * @throws JSONException if the key is not found.
      */
     public String getString(String key) throws JSONException {
         return get(key).toString();
@@ -1510,8 +1506,8 @@ public class JSONObject {
              if (object == null) {
                  return NULL;
              }
-             if (object instanceof JSONObject || object instanceof JSONArray || 
-            		 NULL.equals(object)      || object instanceof JSONString || 
+             if (object instanceof JSONObject || object instanceof JSONArray ||
+            		 NULL.equals(object)      || object instanceof JSONString ||
             		 object instanceof Byte   || object instanceof Character ||
                      object instanceof Short  || object instanceof Integer   ||
                      object instanceof Long   || object instanceof Boolean   || 

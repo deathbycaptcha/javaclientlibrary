@@ -45,13 +45,13 @@ public class JSONML {
      * @return A JSONArray if the value is the outermost tag, otherwise null.
      * @throws JSONException
      */
-    private static Object parse(XMLTokener x, boolean arrayForm, 
-    		JSONArray ja) throws JSONException {
+    private static Object parse(XMLTokener x, boolean arrayForm,
+                                JSONArray ja) throws JSONException {
         String     attribute;
         char       c;
         String	   closeTag = null;
         int        i;
-        JSONArray  newja = null;
+        JSONArray newja = null;
         JSONObject newjo = null;
         Object     token;
         String	   tagName = null;
@@ -129,7 +129,7 @@ public class JSONML {
 			            throw x.syntaxError("Bad tagName '" + token + "'.");		        		
 		        	}
 		        	tagName = (String)token;
-		            newja = new JSONArray();		
+		            newja = new JSONArray();
 		            newjo = new JSONObject();
 		        	if (arrayForm) {
 			            newja.put(tagName);
@@ -304,7 +304,7 @@ public class JSONML {
     public static String toString(JSONArray ja) throws JSONException {
     	Object		 e;
     	int			 i;
-    	JSONObject   jo;
+    	JSONObject jo;
     	String       k;
 	    Iterator     keys;
 	    int			 length;
@@ -387,7 +387,7 @@ public class JSONML {
 	    StringBuffer sb = new StringBuffer();
 	    Object		 e;
 	    int          i;
-	    JSONArray    ja;
+	    JSONArray ja;
 	    String       k;
 	    Iterator     keys;
 	    int          len;

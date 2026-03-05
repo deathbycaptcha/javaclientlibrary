@@ -1,0 +1,1 @@
+"""DeathByCaptcha API validation tests."""

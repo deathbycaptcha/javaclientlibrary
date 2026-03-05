@@ -1,0 +1,69 @@
+stages:
+  - test
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
+
+cache:
+  key: "${CI_COMMIT_REF_SLUG}"
+  paths:
+    - .m2/repository
+
+java_lts_tests:
+  stage: test
+  image: ${CI_JOB_IMAGE}
+  coverage: '/Coverage \(core\):\s+([0-9]+(?:\.[0-9]+)?)%/'
+  parallel:
+    matrix:
+      - JDK_VERSION: "17"
+        CI_JOB_IMAGE: "maven:3.9.9-eclipse-temurin-17"
+      - JDK_VERSION: "21"
+        CI_JOB_IMAGE: "maven:3.9.9-eclipse-temurin-21"
+      - JDK_VERSION: "25"
+        CI_JOB_IMAGE: "maven:3-eclipse-temurin-25"
+
+  before_script:
+    - java -version
+    - |
+      if ! command -v mvn >/dev/null 2>&1; then
+        MAVEN_VERSION="3.9.9"
+        MAVEN_DIR="$CI_PROJECT_DIR/.maven"
+        MAVEN_TGZ="apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+        MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/${MAVEN_TGZ}"
+
+        mkdir -p "$MAVEN_DIR"
+        if command -v curl >/dev/null 2>&1; then
+          curl -fsSL "$MAVEN_URL" -o "$MAVEN_DIR/$MAVEN_TGZ"
+        elif command -v wget >/dev/null 2>&1; then
+          wget -qO "$MAVEN_DIR/$MAVEN_TGZ" "$MAVEN_URL"
+        else
+          echo "Neither curl nor wget is available to download Maven" >&2
+          exit 1
+        fi
+
+        tar -xzf "$MAVEN_DIR/$MAVEN_TGZ" -C "$MAVEN_DIR"
+        export PATH="$MAVEN_DIR/apache-maven-${MAVEN_VERSION}/bin:$PATH"
+      fi
+    - mvn -version
+
+  script:
+    - mvn ${MAVEN_CLI_OPTS} -Djava.release=${JDK_VERSION} clean test
+    - |
+      if [ -f target/site/jacoco/jacoco.csv ]; then
+        awk -F',' 'NR>1 && $2 == "com.DeathByCaptcha" { missed += $4; covered += $5 } END { total = missed + covered; pct = (total > 0 ? (covered * 100.0 / total) : 0); printf "Coverage (core): %.2f%%\n", pct }' target/site/jacoco/jacoco.csv
+      fi
+
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - target/surefire-reports/
+      - target/site/jacoco/
+    reports:
+      junit:
+        - target/surefire-reports/*.xml
+
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH

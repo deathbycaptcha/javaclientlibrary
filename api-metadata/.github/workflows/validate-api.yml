@@ -1,0 +1,49 @@
+name: Validate DeathByCaptcha APIs
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    paths:
+      - 'spec/**'
+      - 'validation/python/tests/**'
+      - '.github/workflows/validate-api.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r validation/python/tests/requirements.txt
+
+      - name: Run API tests
+        env:
+          DBC_USERNAME: ${{ secrets.DBC_USERNAME }}
+          DBC_PASSWORD: ${{ secrets.DBC_PASSWORD }}
+        run: |
+          pytest validation/python/tests/ -v --tb=short
+
+      - name: Test results
+        if: always()
+        run: |
+          echo "API validation completed"
+          if [ $? -eq 0 ]; then
+            echo "✅ All API endpoints responding correctly"
+          else
+            echo "❌ API validation failed - check logs above"
+            exit 1
+          fi

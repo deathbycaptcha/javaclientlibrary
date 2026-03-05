@@ -69,7 +69,7 @@ public class HTTP {
      * @throws JSONException
      */
     public static JSONObject toJSONObject(String string) throws JSONException {
-        JSONObject     o = new JSONObject();
+        JSONObject o = new JSONObject();
         HTTPTokener    x = new HTTPTokener(string);
         String         t;
 

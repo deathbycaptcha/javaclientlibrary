@@ -1,20 +1,20 @@
 package com.DeathByCaptcha;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * Base Death by Captcha API client.
  */
 abstract public class Client {
-    final static public String API_VERSION = "DBC/Java v4.6";
+    final static public String API_VERSION = "DBC/Java v4.6.6";
     final static public int SOFTWARE_VENDOR_ID = 0;
 
     final static public int DEFAULT_TIMEOUT = 60;
@@ -226,7 +226,7 @@ abstract public class Client {
     }
 
     /**
-     * A method created to upload reCAPTCHAs v2, Funcaptchas and Hcaptchas with proxy
+     * A method created to upload reCAPTCHAs v2 and Turnstiles without proxy
      *
      * @param type    Captcha type
      * @param key     googlekey, sitekey or publickey
@@ -239,6 +239,11 @@ abstract public class Client {
     public Captcha upload(int type, String key, String pageurl)
             throws IOException, com.DeathByCaptcha.Exception {
         JSONObject json = new JSONObject();
+        if (type == 13) {
+            // Type 13 captcha is audio
+            // key -> audio and pageurl -> language
+            return this.upload(type, key, pageurl);
+        }
         try {
             switch (type) {
                 case 6:
@@ -246,6 +251,12 @@ abstract public class Client {
                     break;
                 case 7:
                     json.put("sitekey", key);
+                    break;
+                case 12:
+                    json.put("sitekey", key);
+                    break;
+                case 14:
+                    json.put("captchaid", key);
                     break;
                 default:
                     json.put("googlekey", key);
@@ -261,7 +272,7 @@ abstract public class Client {
     }
 
     /**
-     * A method created to upload reCAPTCHAs v2, Funcaptchas and Hcaptchas with proxy
+     * A method created to upload reCAPTCHAs v2 and Turnstiles with proxy
      *
      * @param type      Captcha type
      * @param proxy     User proxy
@@ -286,6 +297,12 @@ abstract public class Client {
                     break;
                 case 7:
                     json.put("sitekey", key);
+                    break;
+                case 12:
+                    json.put("sitekey", key);
+                    break;
+                case 14:
+                    json.put("captchaid", key);
                     break;
                 default:
                     json.put("googlekey", key);
@@ -718,7 +735,7 @@ abstract public class Client {
 
     /**
      * A method created to decode new reCAPTCHAs Image Group type.
-     * See the <a href="https://deathbycaptcha.com/api/newrecaptcha">Api Documentation<a/> for more information.
+     * See the <a href="https://deathbycaptcha.com/api/newrecaptcha">Api Documentation</a> for more information.
      *
      * @param fn          The relative or absolute path of the image file or the url of the image.
      * @param type        Type of captcha (3)
@@ -737,7 +754,7 @@ abstract public class Client {
 
     /**
      * A method created to decode new reCAPTCHAs Image Group type.
-     * See the <a href="https://deathbycaptcha.com/api/newrecaptcha">Api Documentation<a/> for more information.
+     * See the <a href="https://deathbycaptcha.com/api/newrecaptcha">Api Documentation</a> for more information.
      *
      * @param fn          The relative or absolute path of the image file or the url of the image.
      * @param type        Type of captcha (3)
@@ -791,23 +808,20 @@ abstract public class Client {
     }
 
     /**
-     * A method created to decode reCAPTCHAs v2, funcaptchas and hcaptchas.
+     * A method created to decode reCAPTCHAs v2, turnstiles and lemin.
      * See for more info:
      * <ul>
      *     <li>
      *         <a href="https://deathbycaptcha.com/api/newtokenrecaptcha#token-doc">reCAPTCHA v2 Documentation</a>,
      *     </li>
      *     <li>
-     *         <a href="https://deathbycaptcha.com/api/funcaptcha">Funcaptcha Documentation</a>
-     *     </li>
-     *     <li>
-     *         <a href="https://deathbycaptcha.com/api/hcaptcha">Hcaptcha Documentation</a>
+     *         <a href="https://deathbycaptcha.com/api/turnstile">Turnstile Documentation</a>
      *     </li>
      * </ul>
      *
-     * @param type    Type of captcha (4 for reCAPTCHA v2, 6 for Funcaptcha or 7 for Hcaptcha).
+     * @param type    Type of captcha (4 for reCAPTCHA v2, 12 for Turnstile or 14 for lemin).
      * @param key     googlekey, publickey or sitekey depending of type of captcha.
-     * @param pageurl The url of the page with the reCAPTCHA v2, Funcaptcha or Hcaptcha challenge.
+     * @param pageurl The url of the page with the reCAPTCHA v2, Turnstile or Lemin challenge.
      * @throws IOException                  IO error
      * @throws InterruptedException         Interruption error
      * @throws com.DeathByCaptcha.Exception Own exception
@@ -819,23 +833,20 @@ abstract public class Client {
     }
 
     /**
-     * A method created to decode reCAPTCHAs v2, funcaptchas and hcaptchas.
+     * A method created to decode reCAPTCHAs v2 turnstiles and lemins.
      * See for more info:
      * <ul>
      *     <li>
      *         <a href="https://deathbycaptcha.com/api/newtokenrecaptcha#token-doc">reCAPTCHA v2 Documentation</a>,
      *     </li>
      *     <li>
-     *         <a href="https://deathbycaptcha.com/api/funcaptcha">Funcaptcha Documentation</a>
-     *     </li>
-     *     <li>
-     *         <a href="https://deathbycaptcha.com/api/hcaptcha">Hcaptcha Documentation</a>
+     *         <a href="https://deathbycaptcha.com/api/turnstile">Turnstile Documentation</a>
      *     </li>
      * </ul>
      *
-     * @param type    Type of captcha (4 for reCAPTCHA v2, 6 for Funcaptcha or 7 for Hcaptcha).
+     * @param type    Type of captcha (4 for reCAPTCHA v2, 12 for Turnstile or 14 for Lemin).
      * @param key     googlekey, publickey or sitekey depending of type of captcha.
-     * @param pageurl The url of the page with the reCAPTCHA v2, Funcaptcha or Hcaptcha challenge.
+     * @param pageurl The url of the page with the reCAPTCHA v2, Turnstile or Lemin challenge.
      * @param timeout Solving timeout (in seconds).
      * @throws IOException                  IO error
      * @throws InterruptedException         Interruption error
@@ -1105,25 +1116,22 @@ abstract public class Client {
     }
 
     /**
-     * A method created to decode reCAPTCHAs v2, funcaptchas and hcaptchas with proxy.
+     * A method created to decode reCAPTCHAs v2, turnstiles with proxy.
      * See for more info:
      * <ul>
      *     <li>
      *         <a href="https://deathbycaptcha.com/api/newtokenrecaptcha#token-doc">reCAPTCHA v2 Documentation</a>,
      *     </li>
      *     <li>
-     *         <a href="https://deathbycaptcha.com/api/funcaptcha">Funcaptcha Documentation</a>
-     *     </li>
-     *     <li>
-     *         <a href="https://deathbycaptcha.com/api/hcaptcha">Hcaptcha Documentation</a>
+     *         <a href="https://deathbycaptcha.com/api/turnstile">Turnstile Documentation</a>
      *     </li>
      * </ul>
      *
-     * @param type      Type of captcha (4 for reCAPTCHA v2, 6 for Funcaptcha or 7 for Hcaptcha).
+     * @param type      Type of captcha (4 for reCAPTCHA v2, 12 for Turnstile or 14 for Lemin).
      * @param proxy     Proxy url and credentials (if any).
      * @param proxytype Your proxy connection protocol (http).
      * @param key       googlekey, publickey or sitekey depending of type of captcha.
-     * @param pageurl   The url of the page with the reCAPTCHA v2, Funcaptcha or Hcaptcha challenge.
+     * @param pageurl   The url of the page with the reCAPTCHA v2, Turnstile or Lemin challenge.
      * @throws IOException                  IO error
      * @throws InterruptedException         Interruption error
      * @throws com.DeathByCaptcha.Exception Own exception
@@ -1136,25 +1144,22 @@ abstract public class Client {
     }
 
     /**
-     * A method created to decode reCAPTCHA v2, funcaptchas and hcaptchas with proxy.
+     * A method created to decode reCAPTCHA v2 or turnstiles with proxy.
      * See for more info:
      * <ul>
      *     <li>
      *         <a href="https://deathbycaptcha.com/api/newtokenrecaptcha#token-doc">reCAPTCHA v2 Documentation</a>,
      *     </li>
      *     <li>
-     *         <a href="https://deathbycaptcha.com/api/funcaptcha">Funcaptcha Documentation</a>
-     *     </li>
-     *     <li>
-     *         <a href="https://deathbycaptcha.com/api/hcaptcha">Hcaptcha Documentation</a>
+     *         <a href="https://deathbycaptcha.com/api/turnstile">Turnstile Documentation</a>
      *     </li>
      * </ul>
      *
-     * @param type      Type of captcha (4 for reCAPTCHA v2, 6 for Funcaptcha or 7 for Hcaptcha).
+     * @param type      Type of captcha (4 for reCAPTCHA v2 or 12 for Lemin).
      * @param proxy     Proxy url and credentials (if any).
      * @param proxytype Your proxy connection protocol (http).
      * @param key       googlekey, publickey or sitekey depending of type of captcha.
-     * @param pageurl   The url of the page with the reCAPTCHA v2, Funcaptcha or Hcaptcha challenge.
+     * @param pageurl   The url of the page with the reCAPTCHA v2, Turnstile or Lemin challenge.
      * @param timeout   Solving timeout (in seconds).
      * @throws IOException                  IO error
      * @throws InterruptedException         Interruption error
@@ -1215,7 +1220,7 @@ abstract public class Client {
     }
 
     /**
-     * A method created to decode reCAPTCHAs v2, reCAPTCHAs v3, funcaptchas and hcaptchas params in JSON format.
+     * A method created to decode reCAPTCHAs v2, reCAPTCHAs v3 and Amazon WAF params in JSON format.
      * See for more info:
      * <ul>
      *     <li>
@@ -1225,16 +1230,13 @@ abstract public class Client {
      *         <a href="https://deathbycaptcha.com/api/newtokenrecaptcha#reCAPTCHAv3">reCAPTCHA v3 Documentation</a>
      *     </li>
      *     <li>
-     *         <a href="https://deathbycaptcha.com/api/funcaptcha">Funcaptcha Documentation</a>
-     *     </li>
-     *     <li>
-     *         <a href="https://deathbycaptcha.com/api/hcaptcha">Hcaptcha Documentation</a>
+     *         <a href="https://deathbycaptcha.com/api/turnstile">Turnstile Documentation</a>
      *     </li>
      * </ul>
      *
-     * @param type Type of captcha (4 for reCAPTCHA v2, 5 for reCAPTCHA v3, 6 for Funcaptcha and 7 for Hcaptcha).
-     * @param json The <b>token_params</b> (reCAPTCHA v2 and reCAPTCHA v3), <b>funcaptcha_params</b> or
-     *             <b>hcaptcha_params</b>.
+     * @param type Type of captcha (4 for reCAPTCHA v2, 5 for reCAPTCHA v3, 12 for Turnstile, 14 for Lemin or 16 for Amazon WAF).
+     * @param json The <b>token_params</b> (reCAPTCHA v2 and reCAPTCHA v3),
+     *                 <b>turnstile_params</b>, <b>lemin_params</b> or <b>waf_params</b>.
      * @throws IOException                  IO error
      * @throws InterruptedException         Interruption error
      * @throws com.DeathByCaptcha.Exception Own exception
@@ -1244,9 +1246,52 @@ abstract public class Client {
             throws IOException, com.DeathByCaptcha.Exception, InterruptedException {
         return this.decode(type, json, 0);
     }
+    /**
+     * A method created to decode Text Captcha.
+     * See for more info:
+     * <ul>
+     *     <li>
+     *         <a href="https://deathbycaptcha.com/api/textcaptcha">Text Captcha Documentation</a>,
+     *     </li>
+     * </ul>
+     *
+     * @param type 11
+     * @param textccaptcha The quetion to solve
+     * @throws IOException                  IO error
+     * @throws InterruptedException         Interruption error
+     * @throws com.DeathByCaptcha.Exception Own exception
+     */
+    public Captcha decode(int type, String textcaptcha, int timeout)
+            throws IOException, com.DeathByCaptcha.Exception, InterruptedException {
+        long deadline = System.currentTimeMillis() + (0 < timeout ? timeout : Client.DEFAULT_TOKEN_TIMEOUT) * 1000;
+        
+        Captcha captcha = this.upload(type, textcaptcha);
+
+        if (null != captcha) {
+            int intvl_idx = 0;
+            int intvl = 0;
+            int[] results = {0, 0};
+
+            while (deadline > System.currentTimeMillis() && !captcha.isSolved()) {
+                results = Client.getPollInterval(intvl_idx);
+                intvl = results[0];
+                intvl_idx = results[1];
+                Thread.sleep(intvl * 1000);
+                captcha = this.getCaptcha(captcha.id);
+            }
+            if (captcha.isSolved() && captcha.isCorrect()) {
+                return captcha;
+            }
+        }
+        return null;
+    }
+
+    abstract public Captcha upload(int type, String textcaptcha)
+            throws IOException, com.DeathByCaptcha.Exception;
+
 
     /**
-     * A method created to decode reCAPTCHA v2, reCAPTCHA v3, funcaptchas and hcaptchas params in JSON format.
+     * A method created to decode reCAPTCHA v2, reCAPTCHA v3, turnstiles and Amazon WAF params in JSON format.
      * See for more info:
      * <ul>
      *     <li>
@@ -1256,16 +1301,13 @@ abstract public class Client {
      *         <a href="https://deathbycaptcha.com/api/newtokenrecaptcha#reCAPTCHAv3">reCAPTCHA v3 Documentation</a>
      *     </li>
      *     <li>
-     *         <a href="https://deathbycaptcha.com/api/funcaptcha">Funcaptcha Documentation</a>
-     *     </li>
-     *     <li>
-     *         <a href="https://deathbycaptcha.com/api/hcaptcha">Hcaptcha Documentation</a>
+     *         <a href="https://deathbycaptcha.com/api/turnstile">Turnstile Documentation</a>
      *     </li>
      * </ul>
      *
-     * @param type    Type of captcha (4 for reCAPTCHA v2, 5 for reCAPTCHA v3, 6 for Funcaptcha and 7 for Hcaptcha).
-     * @param json    The <b>token_params</b> (reCAPTCHA v2 and reCAPTCHA v3), <b>funcaptcha_params</b> or
-     *                <b>hcaptcha_params</b>.
+     * @param type    Type of captcha (4 for reCAPTCHA v2, 5 for reCAPTCHA v3, 12 for Turnstile, 14 for Lemin and 16 for Amazon WAF).
+     * @param json    The <b>token_params</b> (reCAPTCHA v2 and reCAPTCHA v3),
+     *                <b>turnstile_params</b>, <b>lemin_params</b> or <b>waf_params</b>.
      * @param timeout Solving timeout (in seconds).
      * @throws IOException                  IO error
      * @throws InterruptedException         Interruption error

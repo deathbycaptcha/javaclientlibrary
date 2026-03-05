@@ -80,7 +80,7 @@ public class Cookie {
      */
     public static JSONObject toJSONObject(String string) throws JSONException {
         String         n;
-        JSONObject     o = new JSONObject();
+        JSONObject o = new JSONObject();
         Object         v;
         JSONTokener x = new JSONTokener(string);
         o.put("name", x.nextTo('='));

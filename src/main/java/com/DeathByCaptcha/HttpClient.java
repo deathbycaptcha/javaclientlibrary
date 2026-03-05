@@ -20,7 +20,7 @@ import java.util.Date;
  */
 public class HttpClient extends Client {
     final static public String CRLF = "\r\n";
-    final static public String SERVER_URL = "http://api.dbcapi.me/api";
+    final static public String SERVER_URL = "https://api.dbcapi.me/api";
 
 
     /**
@@ -349,6 +349,93 @@ public class HttpClient extends Client {
         return this.upload(img, "", 0, null, "");
     }
 
+    public Captcha upload(int type, String textcaptcha)
+            throws IOException, com.DeathByCaptcha.Exception {
+        System.out.println("com/DeathByCaptcha/HttpClient.java#upload");
+        String boundary;
+        try {
+            boundary = (new java.math.BigInteger(1, (java.security.MessageDigest.getInstance("SHA1")).digest(
+                    (new java.util.Date()).toString().getBytes()
+            ))).toString(16);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            return null;
+        }
+        String header_data = "";
+        if (!this._username.equals("")) {
+            header_data = "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"username\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + this._username.length() + HttpClient.CRLF + HttpClient.CRLF + this._username + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"password\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + this._password.length() + HttpClient.CRLF + HttpClient.CRLF + this._password + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"swid\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + HttpClient.CRLF + Client.SOFTWARE_VENDOR_ID + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"type\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + Integer.toString(type).length() + HttpClient.CRLF + HttpClient.CRLF + type + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"textcaptcha\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + textcaptcha.toString().length() + HttpClient.CRLF + HttpClient.CRLF + textcaptcha + HttpClient.CRLF;
+        } else {
+            header_data = "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"authtoken\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + this._authtoken.length() + HttpClient.CRLF + HttpClient.CRLF + this._authtoken + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"swid\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + HttpClient.CRLF + Client.SOFTWARE_VENDOR_ID + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"type\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + Integer.toString(type).length() + HttpClient.CRLF + HttpClient.CRLF + type + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"textcaptcha\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + textcaptcha.toString().length() + HttpClient.CRLF + HttpClient.CRLF + textcaptcha + HttpClient.CRLF;
+        }
+        byte[] hdr = header_data.getBytes();
+        byte[] ftr = (HttpClient.CRLF + "--" + boundary + "--").getBytes();
+        int data_length = hdr.length + ftr.length;
+
+
+        byte[] body = new byte[data_length];
+        System.arraycopy(hdr, 0, body, 0, hdr.length);
+
+        //System.arraycopy(ftr, 0, body, hdr.length + img.length, ftr.length);
+
+
+        System.arraycopy(ftr, 0, body, hdr.length, ftr.length);
+
+
+        Captcha c = new Captcha(this.call("captcha", body,
+                "multipart/form-data; boundary=" + boundary));
+        return c.isUploaded() ? c : null;
+    }
+
+
+    /**
+     * @see com.DeathByCaptcha.Client#upload for Audio captcha
+     */
+    public Captcha upload(int type, String audio, String language)
+            throws IOException, com.DeathByCaptcha.Exception {
+        System.out.println("com/DeathByCaptcha/HttpClient.java#upload");
+        String boundary;
+        try {
+            boundary = (new java.math.BigInteger(1, (java.security.MessageDigest.getInstance("SHA1")).digest(
+                    (new java.util.Date()).toString().getBytes()
+            ))).toString(16);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            return null;
+        }
+        String header_data = "";
+        if (!this._username.equals("")) {
+            header_data = "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"username\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + this._username.length() + HttpClient.CRLF + HttpClient.CRLF + this._username + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"password\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + this._password.length() + HttpClient.CRLF + HttpClient.CRLF + this._password + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"swid\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + HttpClient.CRLF + Client.SOFTWARE_VENDOR_ID + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"audio\"" + HttpClient.CRLF + "Content-Type: application/octet-stream" + HttpClient.CRLF + "Content-Length: " + audio.length() + HttpClient.CRLF + HttpClient.CRLF + audio + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"language\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + language.length() + HttpClient.CRLF + HttpClient.CRLF + language + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"type\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + Integer.toString(type).length() + HttpClient.CRLF + HttpClient.CRLF + type + HttpClient.CRLF;
+        } else {
+            header_data = "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"authtoken\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + this._authtoken.length() + HttpClient.CRLF + HttpClient.CRLF + this._authtoken + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"swid\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + HttpClient.CRLF + Client.SOFTWARE_VENDOR_ID + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"audio\"" + HttpClient.CRLF + "Content-Type: application/octet-stream" + HttpClient.CRLF + "Content-Length: " + audio.length() + HttpClient.CRLF + HttpClient.CRLF + audio + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"language\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + language.length() + HttpClient.CRLF + HttpClient.CRLF + language + HttpClient.CRLF +
+                    "--" + boundary + HttpClient.CRLF + "Content-Disposition: form-data; name=\"type\"" + HttpClient.CRLF + "Content-Type: text/plain" + HttpClient.CRLF + "Content-Length: " + Integer.toString(type).length() + HttpClient.CRLF + HttpClient.CRLF + type + HttpClient.CRLF;
+        }
+        byte[] hdr = header_data.getBytes();
+        byte[] ftr = (HttpClient.CRLF + "--" + boundary + "--").getBytes();
+        int data_length = hdr.length + ftr.length;
+
+
+        byte[] body = new byte[data_length];
+        System.arraycopy(hdr, 0, body, 0, hdr.length);
+        System.arraycopy(ftr, 0, body, hdr.length, ftr.length);
+
+        Captcha c = new Captcha(this.call("captcha", body,
+                "multipart/form-data; boundary=" + boundary));
+        return c.isUploaded() ? c : null;
+    }
+
     /**
      * @see com.DeathByCaptcha.Client#upload for noCaptchas by Token
      */
@@ -364,11 +451,41 @@ public class HttpClient extends Client {
         }
         String extra_data_name;
         switch (type) {
-            case 6:
-                extra_data_name = "funcaptcha_params";
-                break;
             case 7:
-                extra_data_name = "hcaptcha_params";
+                extra_data_name = "captcha_params";
+                break;
+            case 8:
+                extra_data_name = "geetest_params";
+                break;
+            case 9:
+                extra_data_name = "geetest_params";
+                break;
+            case 12:
+                extra_data_name = "turnstile_params";
+                break;
+            case 14:
+                extra_data_name = "lemin_params";
+                break;
+            case 16:
+                extra_data_name = "waf_params";
+                break;
+            case 17:
+                extra_data_name = "siara_params";
+                break;
+            case 18:
+                extra_data_name = "mtcaptcha_params";
+                break;
+            case 19:
+                extra_data_name = "cutcaptcha_params";
+                break;
+            case 20:
+                extra_data_name = "friendly_params";
+                break;
+            case 23:
+                extra_data_name = "tencent_params";
+                break;
+             case 24:
+                extra_data_name = "atb_params";
                 break;
             default:
                 extra_data_name = "token_params";

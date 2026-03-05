@@ -2,6 +2,7 @@
 
 [![Tests](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.coverage/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
+[![Integration Tests](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.badges/integration/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
 
 Java SDK to integrate DeathByCaptcha into backend applications and Selenium-based automation.
 

@@ -213,6 +213,78 @@ jobs:
             target/jacoco.exec
             .coverage/badge.json
 
+  integration-tests:
+    name: Integration Tests (Java 25)
+    runs-on: ubuntu-latest
+
+    env:
+      DBC_USERNAME: ${{ secrets.DBC_USERNAME }}
+      DBC_PASSWORD: ${{ secrets.DBC_PASSWORD }}
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: maven
+
+      - name: Run integration tests
+        id: integration
+        run: |
+          mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=25 -Dtest=Online*IntegrationTest test || EXIT_CODE=$?
+          echo "result=${EXIT_CODE:-0}" >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Create integration badge
+        if: always()
+        run: |
+          mkdir -p .badges/integration
+          EXIT_CODE=${{ steps.integration.outputs.result }}
+
+          if [ "$EXIT_CODE" == "0" ]; then
+            MESSAGE="passing"
+            COLOR="brightgreen"
+          else
+            MESSAGE="failing"
+            COLOR="red"
+          fi
+
+          cat > .badges/integration/badge.json << EOF
+          {
+            "schemaVersion": 1,
+            "label": "integration tests",
+            "message": "$MESSAGE",
+            "color": "$COLOR"
+          }
+          EOF
+
+      - name: Commit integration badge
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update integration test badge"
+          file_pattern: .badges/integration/badge.json
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Upload integration test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: target/surefire-reports/
+
   badges:
     name: Generate Test Badges
     needs: [test-java17, test-java21, test-java25]

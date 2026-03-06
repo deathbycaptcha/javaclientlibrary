@@ -38,21 +38,6 @@ Documentation lives in `docs/`.
   - `selenium-integration.md`: Selenium automation guide.
   - `ci-and-coverage.md`: CI/CD configuration details.
 
-## Essential commands
-
-```bash
-# Compile
-mvn clean compile
-
-# Run tests + JaCoCo
-mvn clean test
-
-# Run balance example
-mvn exec:java -Dexec.mainClass="examples.ExampleGetBalance"
-
-# Run Selenium reCAPTCHA v2 example
-mvn exec:java -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2"
-```
 
 ## Requirements
 

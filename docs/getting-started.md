@@ -13,7 +13,7 @@ If you want to consume the SDK from Maven Central (instead of source code in thi
 
 - GroupId: `io.github.deathbycaptcha`
 - ArtifactId: `deathbycaptcha-java-library`
-- Version: `LATEST`
+- Version: `4.6.9`
 
 `pom.xml` dependency:
 
@@ -21,7 +21,7 @@ If you want to consume the SDK from Maven Central (instead of source code in thi
 <dependency>
   <groupId>io.github.deathbycaptcha</groupId>
   <artifactId>deathbycaptcha-java-library</artifactId>
-  <version>LATEST</version>
+  <version>4.6.9</version>
 </dependency>
 ```
 

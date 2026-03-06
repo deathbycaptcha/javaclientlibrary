@@ -2,6 +2,7 @@
 
 [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fdeathbycaptcha.github.io%2Fdeathbycaptcha-api-client-java%2Fcoverage-badge.json&cacheSeconds=300)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml)
 [![Integration API](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml)
+[![Selenium Integration](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/selenium-integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/selenium-integration-tests.yml)
 
 Java client library to integrate DeathByCaptcha into backend applications and Selenium-based automation.
 
@@ -28,6 +29,7 @@ Documentation lives in `docs/`.
   - `java17-tests.yml`, `java21-tests.yml`, `java25-tests.yml`: Per-version Java testing.
   - `coverage-tests.yml`: Code coverage reporting with JaCoCo.
   - `integration-tests.yml`: Live API integration tests.
+  - `selenium-integration-tests.yml`: Headless Selenium reCAPTCHA integration tests.
   - `maven-online-tests.yml`: Maven Central availability tests.
   - `publish-maven-central.yml`: Automated publishing on release.
 - `docs/`
@@ -68,6 +70,7 @@ This project is configured for automated testing on multiple platforms:
 - Tested Java versions: 17 (LTS), 21 (LTS), 25 (latest LTS) in independent workflows.
 - Coverage runs in a dedicated workflow: `coverage-tests.yml`.
 - API integration tests run in `integration-tests.yml`.
+- Selenium integration tests run in `selenium-integration-tests.yml`.
 - Maven online tests run in `maven-online-tests.yml`.
 - Maven Central publish runs on Release publish: `publish-maven-central.yml`.
 - No badge metadata is committed into the repository by CI.
@@ -86,6 +89,7 @@ This project is configured for automated testing on multiple platforms:
 | Java LTS | Java 25 | [![Java 25](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java25-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java25-tests.yml) |
 | Quality | Coverage | [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fdeathbycaptcha.github.io%2Fdeathbycaptcha-api-client-java%2Fcoverage-badge.json&cacheSeconds=300)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml) |
 | Integration | API integration | [![Integration API](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml) |
+| Integration | Selenium integration | [![Selenium Integration](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/selenium-integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/selenium-integration-tests.yml) |
 | Integration | Maven online | [![Maven Online](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/maven-online-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/maven-online-tests.yml) |
 
 ## License

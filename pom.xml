@@ -45,6 +45,7 @@
     <maven.compiler.target>${java.release}</maven.compiler.target>
     <maven.compiler.release>${java.release}</maven.compiler.release>
     <selenium.version>4.2.1</selenium.version>
+    <exec.mainClass>examples.Program</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -99,7 +100,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <mainClass>examples.ExampleGetBalance</mainClass>
+          <mainClass>${exec.mainClass}</mainClass>
         </configuration>
       </plugin>
 

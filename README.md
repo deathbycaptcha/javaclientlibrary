@@ -12,6 +12,7 @@ Documentation lives in `docs/`.
 - [Documentation hub](docs/README.md)
 - [Quick start from Git source](docs/getting-started.md#option-b-use-this-git-repository)
 - [Use from Maven Central](docs/getting-started.md#option-a-use-maven-central-online)
+- [Selenium Sample](docs/selenium-integration.md)
 
 ## Project structure
 

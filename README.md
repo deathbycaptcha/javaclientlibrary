@@ -1,6 +1,6 @@
 # DeathByCaptcha Java SDK
 
-[![Coverage](https://img.shields.io/endpoint?url=https://deathbycaptcha.github.io/deathbycaptcha-api-client-java/coverage-badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fdeathbycaptcha.github.io%2Fdeathbycaptcha-api-client-java%2Fcoverage-badge.json&cacheSeconds=300)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml)
 [![Integration API](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml)
 
 Java SDK to integrate DeathByCaptcha into backend applications and Selenium-based automation.
@@ -74,7 +74,7 @@ This project is configured for automated testing on multiple platforms:
 | Java LTS | Java 17 | [![Java 17](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java17-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java17-tests.yml) |
 | Java LTS | Java 21 | [![Java 21](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java21-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java21-tests.yml) |
 | Java LTS | Java 25 | [![Java 25](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java25-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java25-tests.yml) |
-| Quality | Coverage | [![Coverage](https://img.shields.io/endpoint?url=https://deathbycaptcha.github.io/deathbycaptcha-api-client-java/coverage-badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml) |
+| Quality | Coverage | [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fdeathbycaptcha.github.io%2Fdeathbycaptcha-api-client-java%2Fcoverage-badge.json&cacheSeconds=300)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml) |
 | Integration | API integration | [![Integration API](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml) |
 | Integration | Maven online | [![Maven Online](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/maven-online-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/maven-online-tests.yml) |
 

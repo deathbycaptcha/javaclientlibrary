@@ -87,7 +87,7 @@ public class ExampleSeleniumRecaptchaV2 {
         if (isHeadlessEnabled()) {
             options.addArguments("--headless=new");
         }
-        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox", "--disable-dev-shm-usage", "--remote-allow-origins=*");
 
         WebDriver driver = new ChromeDriver(options);
         Map<String, String> dotEnv = loadDotEnv();

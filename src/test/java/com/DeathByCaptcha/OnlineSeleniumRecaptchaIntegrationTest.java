@@ -49,7 +49,7 @@ public class OnlineSeleniumRecaptchaIntegrationTest {
         if (chromeBin != null && !chromeBin.trim().isEmpty()) {
             options.setBinary(chromeBin.trim());
         }
-        options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+        options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--remote-allow-origins=*");
 
         WebDriver driver = new ChromeDriver(options);
         Client client = null;

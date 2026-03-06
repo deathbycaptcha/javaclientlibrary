@@ -11,14 +11,20 @@ This guide explains how to run SDK tests and coverage on Java LTS 17, 21, and 25
 ## Local execution
 
 ```bash
-mvn -Djava.release=25 clean test
+mvn -Djava.release=25 -Dtest='!Online*IntegrationTest' clean test
 ```
 
 For other LTS versions:
 
 ```bash
-mvn -Djava.release=17 clean test
-mvn -Djava.release=21 clean test
+mvn -Djava.release=17 -Dtest='!Online*IntegrationTest' clean test
+mvn -Djava.release=21 -Dtest='!Online*IntegrationTest' clean test
+```
+
+To run online integration tests only:
+
+```bash
+mvn -Djava.release=25 -Dtest=Online*IntegrationTest test
 ```
 
 ## Generated reports
@@ -44,10 +50,19 @@ File: `.gitlab-ci.yml`
 
 ## GitHub Actions
 
-File: `.github/workflows/java-lts-tests.yml`
+Files:
 
-- Java matrix: 17, 21, 25.
-- Runs `mvn clean test` with `-Djava.release`.
+- `.github/workflows/java17-tests.yml`
+- `.github/workflows/java21-tests.yml`
+- `.github/workflows/java25-tests.yml`
+- `.github/workflows/coverage-tests.yml`
+- `.github/workflows/integration-tests.yml`
+- `.github/workflows/maven-online-tests.yml`
+
+- Core tests run per Java version and exclude `Online*IntegrationTest`.
+- Coverage runs separately in `coverage-tests.yml` (Java 25, excluding online integration tests).
+- API integration runs in `integration-tests.yml` (Java 25, `OnlineGitBasicApiIntegrationTest`).
+- Maven online integration runs in `maven-online-tests.yml` (Java 25, `OnlineMavenBalanceIntegrationTest`).
 - Publishes test and coverage reports as artifacts.
 
 ## Recommendations

@@ -1,4 +1,4 @@
-name: Integration API Tests
+name: Maven Online Tests
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
   pull_request:
 
 jobs:
-  integration-tests:
-    name: Integration API Tests (Java 25)
+  maven-online-tests:
+    name: Maven Online Tests (Java 25)
     runs-on: ubuntu-latest
 
     env:
@@ -26,12 +26,12 @@ jobs:
           java-version: 25
           cache: maven
 
-      - name: Run integration API tests
-        run: mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=25 -Dtest=OnlineGitBasicApiIntegrationTest test
+      - name: Run Maven online integration test
+        run: mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=25 -Dtest=OnlineMavenBalanceIntegrationTest test
 
-      - name: Upload integration test results
+      - name: Upload Maven online test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: integration-api-test-results
+          name: maven-online-test-results
           path: target/surefire-reports/

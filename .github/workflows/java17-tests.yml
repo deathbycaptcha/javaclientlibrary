@@ -1,0 +1,53 @@
+name: Java 17 Tests
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  test-java17:
+    name: Java 17 LTS Tests
+    runs-on: ubuntu-latest
+
+    env:
+      DBC_USERNAME: ${{ secrets.DBC_USERNAME }}
+      DBC_PASSWORD: ${{ secrets.DBC_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Show tool versions
+        run: |
+          java -version
+          mvn -version
+
+      - name: Run tests (excluding online integration)
+        run: mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=17 -Dtest='!Online*IntegrationTest' clean test
+
+      - name: Print core coverage
+        if: always()
+        run: |
+          if [ -f target/site/jacoco/jacoco.csv ]; then
+            awk -F',' 'NR>1 && $2 == "com.DeathByCaptcha" { missed += $4; covered += $5 } END { total = missed + covered; pct = (total > 0 ? (covered * 100.0 / total) : 0); printf "Coverage (core): %.2f%%\n", pct }' target/site/jacoco/jacoco.csv
+          else
+            echo "Coverage (core): N/A (jacoco.csv not found)"
+          fi
+
+      - name: Upload test and coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-java-17
+          path: |
+            target/surefire-reports/
+            target/site/jacoco/

@@ -15,15 +15,25 @@ Documentation lives in `docs/`.
 
 ## Project structure
 
-- `src/main/java/com/DeathByCaptcha/`: core client library (`Client`, `HttpClient`, `SocketClient`, models, and exceptions).
-- `src/main/java/examples/`: runnable examples for multiple captcha types.
-- `src/test/java/com/DeathByCaptcha/`: unit tests for the core package.
-- `.gitlab-ci.yml`: GitLab pipeline with Java 17/21/25 and core coverage reporting.
-- `.github/workflows/java17-tests.yml`, `.github/workflows/java21-tests.yml`, `.github/workflows/java25-tests.yml`: per-version workflows for GitHub Actions.
-- `.github/workflows/coverage-tests.yml`: dedicated coverage workflow.
-- `.github/workflows/integration-tests.yml`: dedicated API integration workflow.
-- `.github/workflows/maven-online-tests.yml`: dedicated Maven online integration workflow.
-- `.github/workflows/publish-maven-central.yml`: publishes to Maven Central when a GitHub Release is published.
+- `src/main/java/com/DeathByCaptcha/`
+  - Core client library (`Client`, `HttpClient`, `SocketClient`, models, and exceptions).
+- `src/main/java/examples/`
+  - Runnable examples for reCAPTCHA v2/v3, image coordinates, image groups, and Selenium integration.
+- `src/test/java/com/DeathByCaptcha/`
+  - Unit tests for core client functionality.
+  - Integration tests for live API validation.
+  - Maven Central artifact availability tests.
+- `.github/workflows/`
+  - `java17-tests.yml`, `java21-tests.yml`, `java25-tests.yml`: Per-version Java testing.
+  - `coverage-tests.yml`: Code coverage reporting with JaCoCo.
+  - `integration-tests.yml`: Live API integration tests.
+  - `maven-online-tests.yml`: Maven Central availability tests.
+  - `publish-maven-central.yml`: Automated publishing on release.
+- `docs/`
+  - `getting-started.md`: Installation and setup guide.
+  - `library-usage.md`: API usage and supported CAPTCHA types.
+  - `selenium-integration.md`: Selenium automation guide.
+  - `ci-and-coverage.md`: CI/CD configuration details.
 
 ## Essential commands
 

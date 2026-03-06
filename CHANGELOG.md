@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [4.6.8] - 2026-03-06
+
+### Changed
+
+- Bumped library/version metadata from `4.6.7` to `4.6.8` in:
+  - `pom.xml`
+  - `src/main/java/com/DeathByCaptcha/Client.java` (`API_VERSION`)
+  - `src/test/java/com/DeathByCaptcha/ClientTest.java`
+- Updated Selenium sample and Selenium integration test to use Chrome by default in headless CI-friendly mode.
+- Added stricter Selenium integration assertion to require `Verification Success` after form submission.
+- Updated Selenium integration workflow diagnostics and browser setup flow to avoid unstable GeckoDriver action dependency.
+- Made all runnable classes in `src/main/java/examples/` public so `mvn exec:java -Dexec.mainClass=...` works consistently across samples.
+
 ## [4.6.7] - 2026-03-06
 
 ### Changed

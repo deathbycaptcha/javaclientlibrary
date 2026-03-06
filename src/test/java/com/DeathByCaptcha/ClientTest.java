@@ -289,7 +289,7 @@ public class ClientTest {
 
     @Test
     public void testConstants() {
-        assertEquals("DBC/Java v4.6.7", Client.API_VERSION);
+        assertEquals("DBC/Java v4.6.8", Client.API_VERSION);
         assertEquals(0, Client.SOFTWARE_VENDOR_ID);
         assertEquals(60, Client.DEFAULT_TIMEOUT);
         assertEquals(120, Client.DEFAULT_TOKEN_TIMEOUT);

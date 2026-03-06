@@ -63,10 +63,10 @@ Files:
 - Core tests run per Java version and exclude `Online*IntegrationTest`.
 - Coverage runs separately in `coverage-tests.yml` (Java 25, excluding online integration tests).
 - API integration runs in `integration-tests.yml` (Java 25, `OnlineGitBasicApiIntegrationTest`).
-- Maven online integration runs in `maven-online-tests.yml` (Java 25, `OnlineMavenBalanceIntegrationTest`).
+- Maven online integration runs in `maven-online-tests.yml` (Java 25 runner, `OnlineMavenBalanceIntegrationTest` validating Maven Central consumption).
 - Publishes test and coverage reports as artifacts.
 - Publishes `coverage-badge.json` to GitHub Pages from Actions (no commit-bot updates to the repository).
-- Publishes to Maven Central on GitHub Release publish via `publish-maven-central.yml`.
+- Publishes to Maven Central on GitHub Release publish via `publish-maven-central.yml` with `-Djava.release=17` (compatible with Java 17/21/25 runtimes).
 - Maven Central publish is restricted to stable releases (pre-releases/drafts are skipped).
 
 Required secrets for Maven Central publish:

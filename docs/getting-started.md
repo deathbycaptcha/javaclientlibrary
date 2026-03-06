@@ -158,7 +158,7 @@ The same applies to other captcha examples in the `examples/` package.
 
 These tests hit the real API and require valid credentials.
 
-**Note:** The `OnlineMavenBalanceIntegrationTest` requires Java 25 LTS to match the Maven Central library. If you're using Java 17 or 21, this test will be automatically skipped.
+**Note:** The `OnlineMavenBalanceIntegrationTest` runs on Java 17+ and validates Maven Central consumption with your current runtime.
 
 Run Maven-Central consumption test:
 
@@ -208,4 +208,4 @@ This will:
 - `401 Unauthorized`: verify username/password or token.
 - Network timeout: confirm outbound connectivity to `api.dbcapi.me`.
 - Java release error: run with `-Djava.release=17|21|25` based on your installed JDK.
-- **Java version mismatch in Maven Central test**: The `OnlineMavenBalanceIntegrationTest` may fail with `class file has wrong version` if the library on Maven Central was compiled with a newer Java version than your current runtime. Solution: upgrade to Java 25 LTS (recommended) or the test will be automatically skipped.
+- **Java version mismatch in Maven Central test**: The `OnlineMavenBalanceIntegrationTest` may fail with `class file has wrong version` if a previously published library on Maven Central was compiled with a newer Java version than your current runtime. Solution: run with Java 17/21/25 matching the published artifact baseline.

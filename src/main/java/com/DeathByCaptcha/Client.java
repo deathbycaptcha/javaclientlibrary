@@ -14,7 +14,7 @@ import org.json.JSONObject;
  * Base Death by Captcha API client.
  */
 abstract public class Client {
-    final static public String API_VERSION = "DBC/Java v4.6.8";
+    final static public String API_VERSION = "DBC/Java v4.6.9";
     final static public int SOFTWARE_VENDOR_ID = 0;
 
     final static public int DEFAULT_TIMEOUT = 60;

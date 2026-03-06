@@ -26,12 +26,12 @@ public class OnlineMavenBalanceIntegrationTest {
         Assume.assumeTrue("Skipping online integration test: DBC_USERNAME is missing", !username.isEmpty());
         Assume.assumeTrue("Skipping online integration test: DBC_PASSWORD is missing", !password.isEmpty());
         
-        // Check Java version - Maven Central library may require Java 25 LTS
+        // Check Java version baseline for Maven Central compatibility tests
         String javaVersion = System.getProperty("java.version");
         int javaMajor = getMajorJavaVersion(javaVersion);
         Assume.assumeTrue(
-            "Skipping online integration test: requires Java 25+ but running " + javaVersion,
-            javaMajor >= 25
+            "Skipping online integration test: requires Java 17+ but running " + javaVersion,
+            javaMajor >= 17
         );
 
         String expectedVersion = resolveLatestVersionFromMavenCentral();
@@ -122,8 +122,8 @@ public class OnlineMavenBalanceIntegrationTest {
                   <version>1.0.0</version>
 
                   <properties>
-                    <maven.compiler.source>25</maven.compiler.source>
-                    <maven.compiler.target>25</maven.compiler.target>
+                    <maven.compiler.source>17</maven.compiler.source>
+                    <maven.compiler.target>17</maven.compiler.target>
                     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                                         <dbc.version>%s</dbc.version>
                   </properties>

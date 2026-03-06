@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [4.6.9] - 2026-03-06
+
+### Changed
+
+- Bumped library/version metadata from `4.6.8` to `4.6.9` in:
+  - `pom.xml`
+  - `src/main/java/com/DeathByCaptcha/Client.java` (`API_VERSION`)
+  - `src/test/java/com/DeathByCaptcha/ClientTest.java`
+- Updated Maven Central publish workflow to deploy artifacts with `-Djava.release=17` for Java 17/21/25 runtime compatibility.
+- Updated Maven Central online integration messaging/docs to remove Java 25-only requirement.
+
 ## [4.6.8] - 2026-03-06
 
 ### Changed

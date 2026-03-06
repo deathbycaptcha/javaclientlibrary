@@ -1,8 +1,7 @@
 # DeathByCaptcha Java SDK
 
 [![Tests](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
-[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.coverage/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
-[![Integration Tests](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.badges/integration/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
+[![Integration Tests](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml)
 
 Java SDK to integrate DeathByCaptcha into backend applications and Selenium-based automation.
 
@@ -55,21 +54,18 @@ This project is configured for automated testing on multiple platforms:
 ### GitHub Actions
 
 - Tested Java versions: 17 (LTS), 21 (LTS), 25 (latest LTS).
-- Coverage badge generated as JSON metadata at `.coverage/badge.json`.
-- Per-version badge metadata generated at `.badges/java17|java21|java25/badge.json`.
+- Integration tests run in a dedicated workflow: `integration-tests.yml`.
+- No badge metadata is committed into the repository by CI.
 
 ### GitLab CI/CD
 
 - Java LTS matrix (17/21/25) with Maven and JaCoCo.
 - Supports credentials via CI variables and local `.env` for `gitlab-ci-local`.
 
-### Test status by Java version
+### Workflow status
 
-| Java Version | Status |
-|-------------|--------|
-| 17 LTS | [![Java 17](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.badges/java17/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml) |
-| 21 LTS | [![Java 21](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.badges/java21/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml) |
-| 25 LTS | [![Java 25](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/deathbycaptcha/deathbycaptcha-api-client-java/master/.badges/java25/badge.json)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml) |
+- Core tests: [Java LTS Tests workflow](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/java-lts-tests.yml)
+- Integration tests: [Integration Tests workflow](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml)
 
 ## License
 

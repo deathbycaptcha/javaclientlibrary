@@ -8,7 +8,7 @@ If you want to consume the SDK from Maven Central (instead of source code in thi
 
 - GroupId: `io.github.deathbycaptcha`
 - ArtifactId: `deathbycaptcha-java-library`
-- Version: `4.6.6`
+- Version: `4.6.7`
 
 `pom.xml` dependency:
 
@@ -16,7 +16,7 @@ If you want to consume the SDK from Maven Central (instead of source code in thi
 <dependency>
   <groupId>io.github.deathbycaptcha</groupId>
   <artifactId>deathbycaptcha-java-library</artifactId>
-  <version>4.6.6</version>
+  <version>4.6.7</version>
 </dependency>
 ```
 
@@ -24,7 +24,7 @@ Quick online resolution check:
 
 ```bash
 mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.7.1:get \
-  -Dartifact=io.github.deathbycaptcha:deathbycaptcha-java-library:4.6.6 \
+  -Dartifact=io.github.deathbycaptcha:deathbycaptcha-java-library:4.6.7 \
   -Dtransitive=false \
   -DremoteRepositories=central::default::https://repo1.maven.org/maven2
 ```

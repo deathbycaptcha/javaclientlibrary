@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [4.6.7] - 2026-03-06
+
+### Changed
+
+- Bumped SDK/version metadata from `4.6.6` to `4.6.7` in:
+  - `pom.xml`
+  - `src/main/java/com/DeathByCaptcha/Client.java` (`API_VERSION`)
+  - `src/test/java/com/DeathByCaptcha/ClientTest.java`
+  - `src/test/java/com/DeathByCaptcha/OnlineMavenBalanceIntegrationTest.java`
+  - `docs/getting-started.md`
+  - `docs/library-usage.md`
+- Added release automation workflow: `.github/workflows/publish-maven-central.yml`.
+- Restricted Maven Central auto-publish to stable releases only (pre-releases and drafts are skipped).
+
 ## [4.6.6] - 2026-03-05
 
 ### Added

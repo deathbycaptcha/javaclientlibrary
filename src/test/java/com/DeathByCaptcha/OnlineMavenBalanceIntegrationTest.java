@@ -24,7 +24,7 @@ public class OnlineMavenBalanceIntegrationTest {
         Assume.assumeTrue("Skipping online integration test: DBC_USERNAME is missing", !username.isEmpty());
         Assume.assumeTrue("Skipping online integration test: DBC_PASSWORD is missing", !password.isEmpty());
 
-        String expectedVersion = "4.6.6";
+        String expectedVersion = "4.6.7";
         Path tempProject = Files.createTempDirectory("dbc-online-maven-it-");
         Path isolatedMavenRepo = tempProject.resolve(".m2/repository");
         Path expectedArtifactJar = isolatedMavenRepo.resolve(

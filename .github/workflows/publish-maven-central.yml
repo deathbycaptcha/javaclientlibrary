@@ -1,0 +1,50 @@
+name: Publish to Maven Central
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish release artifacts
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'release' && !github.event.release.prerelease && !github.event.release.draft)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25 + Maven Central credentials
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: maven
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+
+      - name: Validate release tag contains pom version
+        if: github.event_name == 'release'
+        run: |
+          set -e
+          POM_VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
+          TAG_NAME='${{ github.event.release.tag_name }}'
+          echo "Release tag: ${TAG_NAME}"
+          echo "POM version: ${POM_VERSION}"
+          if [[ "${TAG_NAME}" != *"${POM_VERSION}"* ]]; then
+            echo "Release tag must contain pom version (${POM_VERSION})."
+            exit 1
+          fi
+
+      - name: Publish to Maven Central
+        env:
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+        run: |
+          mvn --batch-mode --errors --fail-at-end --show-version -DskipTests -Djava.release=25 clean deploy

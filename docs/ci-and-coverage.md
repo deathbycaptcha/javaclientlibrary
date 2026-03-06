@@ -58,6 +58,7 @@ Files:
 - `.github/workflows/coverage-tests.yml`
 - `.github/workflows/integration-tests.yml`
 - `.github/workflows/maven-online-tests.yml`
+- `.github/workflows/publish-maven-central.yml`
 
 - Core tests run per Java version and exclude `Online*IntegrationTest`.
 - Coverage runs separately in `coverage-tests.yml` (Java 25, excluding online integration tests).
@@ -65,6 +66,15 @@ Files:
 - Maven online integration runs in `maven-online-tests.yml` (Java 25, `OnlineMavenBalanceIntegrationTest`).
 - Publishes test and coverage reports as artifacts.
 - Publishes `coverage-badge.json` to GitHub Pages from Actions (no commit-bot updates to the repository).
+- Publishes to Maven Central on GitHub Release publish via `publish-maven-central.yml`.
+- Maven Central publish is restricted to stable releases (pre-releases/drafts are skipped).
+
+Required secrets for Maven Central publish:
+
+- `CENTRAL_USERNAME`
+- `CENTRAL_PASSWORD`
+- `MAVEN_GPG_PRIVATE_KEY` (ASCII-armored private key)
+- `MAVEN_GPG_PASSPHRASE` (optional; only needed if the private key is passphrase-protected)
 
 ## Recommendations
 

@@ -26,6 +26,7 @@ Practical documentation is available in `docs/`:
 - `.github/workflows/coverage-tests.yml`: dedicated coverage workflow.
 - `.github/workflows/integration-tests.yml`: dedicated API integration workflow.
 - `.github/workflows/maven-online-tests.yml`: dedicated Maven online integration workflow.
+- `.github/workflows/publish-maven-central.yml`: publishes to Maven Central when a GitHub Release is published.
 
 ## Essential commands
 
@@ -60,6 +61,7 @@ This project is configured for automated testing on multiple platforms:
 - Coverage runs in a dedicated workflow: `coverage-tests.yml`.
 - API integration tests run in `integration-tests.yml`.
 - Maven online tests run in `maven-online-tests.yml`.
+- Maven Central publish runs on Release publish: `publish-maven-central.yml`.
 - No badge metadata is committed into the repository by CI.
 
 ### GitLab CI/CD

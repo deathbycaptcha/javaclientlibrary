@@ -1,14 +1,12 @@
 package examples;
 
-import com.DeathByCaptcha.AccessDeniedException;
-import com.DeathByCaptcha.Client;
-import com.DeathByCaptcha.HttpClient;
-import com.DeathByCaptcha.SocketClient;
-import com.DeathByCaptcha.Captcha;
-
 import java.io.IOException;
 
-class ExampleNormalCaptcha {
+import com.DeathByCaptcha.Captcha;
+import com.DeathByCaptcha.Client;
+import com.DeathByCaptcha.HttpClient;
+
+public class ExampleNormalCaptcha {
     public static void main(String[] args)
             throws Exception {
 

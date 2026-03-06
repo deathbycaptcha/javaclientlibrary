@@ -27,18 +27,29 @@ jobs:
           java-version: 25
           cache: maven
 
-      - name: Install Firefox and GeckoDriver
+      - name: Set up Firefox
+        uses: browser-actions/setup-firefox@v1
+
+      - name: Set up GeckoDriver
+        uses: browser-actions/setup-geckodriver@v1
+
+      - name: Browser diagnostics
         run: |
-          sudo apt-get update
-          sudo apt-get install -y firefox
-          if ! command -v geckodriver >/dev/null 2>&1; then
-            sudo apt-get install -y firefox-geckodriver || sudo apt-get install -y geckodriver
-          fi
+          which firefox
+          which geckodriver
           firefox --version
           geckodriver --version
 
       - name: Run Selenium integration test
         run: mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=25 -Dtest=OnlineSeleniumRecaptchaIntegrationTest test
+
+      - name: Print Surefire reports on failure
+        if: failure()
+        run: |
+          echo "==== surefire text reports ===="
+          find target/surefire-reports -name "*.txt" -maxdepth 1 -print -exec cat {} \;
+          echo "==== surefire xml reports ===="
+          find target/surefire-reports -name "*.xml" -maxdepth 1 -print -exec sed -n '1,220p' {} \;
 
       - name: Upload Selenium integration test results
         if: always()

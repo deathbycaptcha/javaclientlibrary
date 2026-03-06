@@ -1,18 +1,15 @@
 package examples;
 
-import com.DeathByCaptcha.AccessDeniedException;
-import com.DeathByCaptcha.Client;
-import com.DeathByCaptcha.HttpClient;
-import com.DeathByCaptcha.SocketClient;
-import com.DeathByCaptcha.Captcha;
-import java.util.Base64;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.IOException;
+import java.util.Base64;
 
-import java.io.IOException;
+import com.DeathByCaptcha.Captcha;
+import com.DeathByCaptcha.Client;
+import com.DeathByCaptcha.HttpClient;
 
-class ExampleAudioCaptcha {
+public class ExampleAudioCaptcha {
     public static void main(String[] args)
             throws Exception {
 

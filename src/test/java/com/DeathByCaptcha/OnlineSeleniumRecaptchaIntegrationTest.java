@@ -45,6 +45,10 @@ public class OnlineSeleniumRecaptchaIntegrationTest {
         );
 
         FirefoxOptions options = new FirefoxOptions();
+        String firefoxBin = System.getenv("FIREFOX_BIN");
+        if (firefoxBin != null && !firefoxBin.trim().isEmpty()) {
+            options.setBinary(firefoxBin.trim());
+        }
         options.addArguments("-headless");
 
         WebDriver driver = new FirefoxDriver(options);
@@ -102,8 +106,8 @@ public class OnlineSeleniumRecaptchaIntegrationTest {
             String successText = successMessage.getText();
             assertNotNull("Expected success message text", successText);
             assertTrue(
-                "Expected success message after form submit",
-                successText.toLowerCase().contains("success")
+                "Expected 'Verification Success' message after form submit, got: " + successText,
+                successText.contains("Verification Success")
             );
         } finally {
             if (client != null) {

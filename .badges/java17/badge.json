@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "Java 17",
-  "message": "passing",
-  "color": "brightgreen"
+  "message": "failing",
+  "color": "red"
 }

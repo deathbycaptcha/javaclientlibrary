@@ -15,4 +15,9 @@ if [ -f .env ]; then
 fi
 
 # Run tests with Maven
-mvn "${@:-test}"
+# Default: exclude Selenium test that requires Chrome
+if [ $# -eq 0 ]; then
+    mvn test -Dtest='!OnlineSeleniumRecaptchaIntegrationTest'
+else
+    mvn "$@"
+fi

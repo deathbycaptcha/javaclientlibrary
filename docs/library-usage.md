@@ -10,7 +10,7 @@ Use this dependency in your Maven project:
 <dependency>
     <groupId>io.github.deathbycaptcha</groupId>
     <artifactId>deathbycaptcha-java-library</artifactId>
-    <version>4.6.7</version>
+    <version>LATEST</version>
 </dependency>
 ```
 
@@ -18,7 +18,7 @@ Optional online fetch verification:
 
 ```bash
 mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.7.1:get \
-    -Dartifact=io.github.deathbycaptcha:deathbycaptcha-java-library:4.6.7 \
+    -Dartifact=io.github.deathbycaptcha:deathbycaptcha-java-library:LATEST \
     -Dtransitive=false \
     -DremoteRepositories=central::default::https://repo1.maven.org/maven2
 ```

@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,7 +26,7 @@ public class OnlineMavenBalanceIntegrationTest {
         Assume.assumeTrue("Skipping online integration test: DBC_USERNAME is missing", !username.isEmpty());
         Assume.assumeTrue("Skipping online integration test: DBC_PASSWORD is missing", !password.isEmpty());
 
-        String expectedVersion = "4.6.7";
+        String expectedVersion = resolveLatestVersionFromMavenCentral();
         Path tempProject = Files.createTempDirectory("dbc-online-maven-it-");
         Path isolatedMavenRepo = tempProject.resolve(".m2/repository");
         Path expectedArtifactJar = isolatedMavenRepo.resolve(
@@ -189,6 +191,42 @@ public class OnlineMavenBalanceIntegrationTest {
     private static String getenvTrimmed(String key) {
         String value = System.getenv(key);
         return value == null ? "" : value.trim();
+    }
+
+    private static String resolveLatestVersionFromMavenCentral() throws IOException, InterruptedException {
+        CommandResult metadataResult = runCommand(
+                Path.of("."),
+                List.of(
+                        "mvn",
+                        "-B",
+                        "-q",
+                        "-U",
+                        "org.apache.maven.plugins:maven-help-plugin:3.4.1:evaluate",
+                        "-Dexpression=project.version",
+                        "-DforceStdout",
+                        "-Dartifact=io.github.deathbycaptcha:deathbycaptcha-java-library:LATEST",
+                        "-DremoteRepositories=central::default::https://repo1.maven.org/maven2"
+                )
+        );
+
+        if (metadataResult.exitCode != 0) {
+            throw new IOException("Unable to resolve latest version from Maven Central:\n" + metadataResult.output);
+        }
+
+        Pattern versionPattern = Pattern.compile("^\\d+\\.\\d+\\.\\d+(?:[-.].+)?$");
+        for (String line : metadataResult.output.split("\\R")) {
+            String value = line.trim();
+            if (versionPattern.matcher(value).matches()) {
+                return value;
+            }
+        }
+
+        Matcher matcher = Pattern.compile("(\\d+\\.\\d+\\.\\d+(?:[-.][^\\s]+)?)").matcher(metadataResult.output);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        throw new IOException("Could not parse latest version from Maven output:\n" + metadataResult.output);
     }
 
     private static String maskValue(String value) {

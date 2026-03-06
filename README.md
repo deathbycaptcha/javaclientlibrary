@@ -1,24 +1,21 @@
-# DeathByCaptcha Java SDK
+# DeathByCaptcha Java Client Library
 
 [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fdeathbycaptcha.github.io%2Fdeathbycaptcha-api-client-java%2Fcoverage-badge.json&cacheSeconds=300)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/coverage-tests.yml)
 [![Integration API](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/deathbycaptcha/deathbycaptcha-api-client-java/actions/workflows/integration-tests.yml)
 
-Java SDK to integrate DeathByCaptcha into backend applications and Selenium-based automation.
+Java client library to integrate DeathByCaptcha into backend applications and Selenium-based automation.
 
 ## Documentation
 
-Practical documentation is available in `docs/`:
+Documentation lives in `docs/`.
 
-- [Main guide](docs/README.md)
-- [Getting started](docs/getting-started.md)
-- [Maven Central online usage](docs/getting-started.md#0-use-maven-central-online)
-- [Library usage](docs/library-usage.md)
-- [Selenium integration](docs/selenium-integration.md)
-- [CI and coverage](docs/ci-and-coverage.md)
+- [Documentation hub](docs/README.md)
+- [Quick start from Git source](docs/getting-started.md#option-b-use-this-git-repository)
+- [Use from Maven Central](docs/getting-started.md#option-a-use-maven-central-online)
 
 ## Project structure
 
-- `src/main/java/com/DeathByCaptcha/`: core SDK (`Client`, `HttpClient`, `SocketClient`, models, and exceptions).
+- `src/main/java/com/DeathByCaptcha/`: core client library (`Client`, `HttpClient`, `SocketClient`, models, and exceptions).
 - `src/main/java/examples/`: runnable examples for multiple captcha types.
 - `src/test/java/com/DeathByCaptcha/`: unit tests for the core package.
 - `.gitlab-ci.yml`: GitLab pipeline with Java 17/21/25 and core coverage reporting.

@@ -2,7 +2,12 @@
 
 Guide to validate your environment compiles correctly and the SDK can authenticate successfully.
 
-## 0) Use Maven Central (online)
+## Choose your path
+
+- **Option A (recommended for consumers):** use Maven Central.
+- **Option B (recommended for contributors):** use this Git repository source code.
+
+## Option A: Use Maven Central (online)
 
 If you want to consume the SDK from Maven Central (instead of source code in this repository), use:
 
@@ -31,7 +36,16 @@ mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.7.1:get \
 
 Expected result: `BUILD SUCCESS`.
 
-## 1) Prepare your environment
+## Option B: Use this Git repository
+
+### 1) Clone and enter the repo
+
+```bash
+git clone https://github.com/deathbycaptcha/deathbycaptcha-api-client-java.git
+cd deathbycaptcha-api-client-java
+```
+
+### 2) Prepare your environment
 
 - Java 25 LTS (recommended).
 - Java 17 or 21 (supported for compatibility).
@@ -49,7 +63,7 @@ export DBC_PASSWORD="your_password"
 export DBC_AUTHTOKEN="your_token"
 ```
 
-## 2) Compile the project
+### 3) Compile the project
 
 From the repository root:
 
@@ -57,7 +71,7 @@ From the repository root:
 mvn clean compile
 ```
 
-## 3) Run the balance example
+### 4) Run the balance example
 
 The fastest way to validate connectivity and authentication:
 
@@ -71,7 +85,7 @@ With valid credentials, you should see output similar to:
 Your balance is <amount> US cents
 ```
 
-## 4) Run tests and coverage
+### 5) Run tests and coverage
 
 ```bash
 mvn clean test
@@ -82,7 +96,7 @@ Generated artifacts:
 - Test report: `target/surefire-reports/`
 - JaCoCo coverage: `target/site/jacoco/`
 
-## 5) Run a real captcha example
+### 6) Run a real captcha example
 
 reCAPTCHA v2:
 
@@ -92,7 +106,7 @@ mvn exec:java -Dexec.mainClass="examples.ExampleRecaptchaV2"
 
 Note: update credentials and parameters in the example before running it.
 
-## 6) Validate online integration tests
+### 7) Validate online integration tests
 
 These tests hit the real API and require valid credentials.
 

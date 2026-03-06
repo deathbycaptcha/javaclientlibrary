@@ -6,7 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
-- Bumped SDK/version metadata from `4.6.6` to `4.6.7` in:
+- Bumped library/version metadata from `4.6.6` to `4.6.7` in:
   - `pom.xml`
   - `src/main/java/com/DeathByCaptcha/Client.java` (`API_VERSION`)
   - `src/test/java/com/DeathByCaptcha/ClientTest.java`

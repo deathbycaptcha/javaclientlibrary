@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>DeathByCaptcha library for Java</name>
-  <description>DeathByCaptcha Java library v4.6.7 (unified package: core SDK + full samples + Selenium integration in one artifact)</description>
+  <description>DeathByCaptcha Java library v4.6.7 (unified package: core client library + full samples + Selenium integration in one artifact)</description>
   <url>https://github.com/deathbycaptcha/deathbycaptcha-api-client-java</url>
 
   <licenses>

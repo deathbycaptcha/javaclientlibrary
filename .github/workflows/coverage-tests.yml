@@ -6,6 +6,11 @@ on:
       - '**'
   pull_request:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   coverage-tests:
     name: Coverage Tests (Java 25)
@@ -34,6 +39,26 @@ jobs:
             echo "Coverage (core): N/A (jacoco.csv not found)"
           fi
 
+      - name: Build dynamic coverage badge JSON
+        if: always()
+        run: |
+          set -e
+          mkdir -p badge
+          if [ -f target/site/jacoco/jacoco.csv ]; then
+            pct=$(awk -F',' 'NR>1 && $2 == "com.DeathByCaptcha" { missed += $4; covered += $5 } END { total = missed + covered; pct = (total > 0 ? (covered * 100.0 / total) : 0); printf "%.2f", pct }' target/site/jacoco/jacoco.csv)
+            color="red"
+            awk -v p="$pct" 'BEGIN { exit !(p >= 80) }' && color="brightgreen" || true
+            awk -v p="$pct" 'BEGIN { exit !(p >= 60 && p < 80) }' && color="yellow" || true
+            awk -v p="$pct" 'BEGIN { exit !(p < 60) }' && color="red" || true
+            cat > badge/coverage-badge.json <<EOF
+          {"schemaVersion":1,"label":"coverage","message":"${pct}%","color":"${color}"}
+          EOF
+          else
+            cat > badge/coverage-badge.json <<EOF
+          {"schemaVersion":1,"label":"coverage","message":"n/a","color":"lightgrey"}
+          EOF
+          fi
+
       - name: Upload coverage reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -43,3 +68,20 @@ jobs:
             target/site/jacoco/
             target/jacoco.exec
             target/surefire-reports/
+
+      - name: Upload Pages artifact (coverage badge)
+        if: always() && github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: badge
+
+  deploy-coverage-badge:
+    name: Deploy coverage badge to GitHub Pages
+    if: github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    needs: coverage-tests
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

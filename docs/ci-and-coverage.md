@@ -64,6 +64,7 @@ Files:
 - API integration runs in `integration-tests.yml` (Java 25, `OnlineGitBasicApiIntegrationTest`).
 - Maven online integration runs in `maven-online-tests.yml` (Java 25, `OnlineMavenBalanceIntegrationTest`).
 - Publishes test and coverage reports as artifacts.
+- Publishes `coverage-badge.json` to GitHub Pages from Actions (no commit-bot updates to the repository).
 
 ## Recommendations
 

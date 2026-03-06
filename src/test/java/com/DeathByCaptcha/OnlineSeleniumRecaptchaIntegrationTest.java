@@ -21,8 +21,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -44,14 +44,14 @@ public class OnlineSeleniumRecaptchaIntegrationTest {
             hasToken || hasUserPass
         );
 
-        FirefoxOptions options = new FirefoxOptions();
-        String firefoxBin = System.getenv("FIREFOX_BIN");
-        if (firefoxBin != null && !firefoxBin.trim().isEmpty()) {
-            options.setBinary(firefoxBin.trim());
+        ChromeOptions options = new ChromeOptions();
+        String chromeBin = System.getenv("CHROME_BIN");
+        if (chromeBin != null && !chromeBin.trim().isEmpty()) {
+            options.setBinary(chromeBin.trim());
         }
-        options.addArguments("-headless");
+        options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
 
-        WebDriver driver = new FirefoxDriver(options);
+        WebDriver driver = new ChromeDriver(options);
         Client client = null;
 
         try {

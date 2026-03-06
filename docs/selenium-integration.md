@@ -40,9 +40,9 @@ import com.DeathByCaptcha.Client;
 import com.DeathByCaptcha.HttpClient;
 import org.json.JSONObject;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-WebDriver driver = new FirefoxDriver();
+WebDriver driver = new ChromeDriver();
 String pageUrl = "https://www.google.com/recaptcha/api2/demo";
 
 driver.get(pageUrl);
@@ -78,7 +78,7 @@ mvn exec:java -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2"
 
 - Default behavior: if not set, it runs in headless mode (`true`).
 - Set `-Dselenium.headless=true` to force headless mode.
-- Set `-Dselenium.headless=false` to open Firefox with UI.
+- Set `-Dselenium.headless=false` to open Chrome with UI.
 
 Run explicitly in headless mode:
 
@@ -98,13 +98,13 @@ mvn exec:java \
 
 If `.env` is present, no extra export step is required.
 
-If GeckoDriver is not on your PATH, run with explicit driver path:
+If ChromeDriver is not on your PATH, run with explicit driver path:
 
 ```bash
 mvn exec:java \
     -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2" \
     -Dselenium.headless=true \
-    -Dwebdriver.gecko.driver="/absolute/path/to/geckodriver"
+    -Dwebdriver.chrome.driver="/absolute/path/to/chromedriver"
 ```
 
 ## Selenium best practices

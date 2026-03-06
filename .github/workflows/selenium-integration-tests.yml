@@ -27,21 +27,21 @@ jobs:
           java-version: 25
           cache: maven
 
-      - name: Set up Firefox
-        uses: browser-actions/setup-firefox@v1
-
-      - name: Set up GeckoDriver
-        uses: browser-actions/setup-geckodriver@v1
-
       - name: Browser diagnostics
         run: |
-          which firefox
-          which geckodriver
-          firefox --version
-          geckodriver --version
+          command -v google-chrome || command -v google-chrome-stable || command -v chromium-browser || command -v chromium || true
+          command -v chromedriver || true
+          (google-chrome --version || google-chrome-stable --version || chromium-browser --version || chromium --version || true)
+          (chromedriver --version || true)
 
       - name: Run Selenium integration test
-        run: mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=25 -Dtest=OnlineSeleniumRecaptchaIntegrationTest test
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium-browser || command -v chromium || true)"
+          if [ -n "$CHROME_BIN" ]; then
+            export CHROME_BIN
+            echo "Using CHROME_BIN=$CHROME_BIN"
+          fi
+          mvn --batch-mode --errors --fail-at-end --show-version -Djava.release=25 -Dtest=OnlineSeleniumRecaptchaIntegrationTest test
 
       - name: Print Surefire reports on failure
         if: failure()

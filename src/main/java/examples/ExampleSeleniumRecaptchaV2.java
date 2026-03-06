@@ -15,8 +15,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -79,12 +79,17 @@ public class ExampleSeleniumRecaptchaV2 {
 
     public static void main(String[] args) {
         String baseUrl = "https://www.google.com/recaptcha/api2/demo";
-        FirefoxOptions options = new FirefoxOptions();
-        if (isHeadlessEnabled()) {
-            options.addArguments("-headless");
+        ChromeOptions options = new ChromeOptions();
+        String chromeBin = System.getenv("CHROME_BIN");
+        if (chromeBin != null && !chromeBin.trim().isEmpty()) {
+            options.setBinary(chromeBin.trim());
         }
+        if (isHeadlessEnabled()) {
+            options.addArguments("--headless=new");
+        }
+        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
 
-        WebDriver driver = new FirefoxDriver(options);
+        WebDriver driver = new ChromeDriver(options);
         Map<String, String> dotEnv = loadDotEnv();
 
         String authToken = readConfig("DBC_AUTHTOKEN", dotEnv);

@@ -641,9 +641,7 @@ public class ProductionCaptchaSolver {
 
 ## Additional Resources
 
-- For additional CAPTCHA types and end-to-end usage patterns, check the runnable samples under `src/main/java/examples/`.
+- For end-to-end usage patterns with different CAPTCHA types, see [Samples usage](samples.md).
+- For browser automation integration, see [Selenium integration](selenium-integration.md).
 - **Official API Documentation**: [https://deathbycaptcha.com/api](https://deathbycaptcha.com/api)
 - **API Metadata Repository**: [https://github.com/deathbycaptcha/deathbycaptcha-agent-api-metadata/](https://github.com/deathbycaptcha/deathbycaptcha-agent-api-metadata/)
-- **Getting Started Guide**: [getting-started.md](getting-started.md)
-- **Selenium Integration**: [selenium-integration.md](selenium-integration.md)
-- **CI/CD Configuration**: [ci-and-coverage.md](ci-and-coverage.md)

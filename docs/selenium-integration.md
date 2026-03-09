@@ -2,7 +2,7 @@
 
 Practical guide to automate reCAPTCHA v2 using Selenium + Java SDK.
 
-Reference implementation: `src/main/java/examples/ExampleSeleniumRecaptchaV2.java`.
+Reference implementation: `samples/src/main/java/examples/ExampleSeleniumRecaptchaV2.java`.
 
 ## Requirements
 
@@ -67,10 +67,13 @@ if (captcha != null) {
 
 ## Execution
 
+`ExampleSeleniumRecaptchaV2` is a sample class, so run it with Maven profile `samples`:
+
 ```bash
-mvn compile
-mvn exec:java -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2"
+mvn -Psamples exec:java -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2"
 ```
+
+See [Samples usage](samples.md) for more details on the `-Psamples` profile.
 
 ## Headless mode
 
@@ -83,7 +86,7 @@ mvn exec:java -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2"
 Run explicitly in headless mode:
 
 ```bash
-mvn exec:java \
+mvn -Psamples exec:java \
     -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2" \
     -Dselenium.headless=true
 ```
@@ -91,7 +94,7 @@ mvn exec:java \
 Run with browser UI locally:
 
 ```bash
-mvn exec:java \
+mvn -Psamples exec:java \
     -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2" \
     -Dselenium.headless=false
 ```
@@ -101,7 +104,7 @@ If `.env` is present, no extra export step is required.
 If ChromeDriver is not on your PATH, run with explicit driver path:
 
 ```bash
-mvn exec:java \
+mvn -Psamples exec:java \
     -Dexec.mainClass="examples.ExampleSeleniumRecaptchaV2" \
     -Dselenium.headless=true \
     -Dwebdriver.chrome.driver="/absolute/path/to/chromedriver"

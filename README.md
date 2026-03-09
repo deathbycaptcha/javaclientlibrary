@@ -6,6 +6,8 @@
 
 Java client library to integrate DeathByCaptcha into backend applications and Selenium-based automation.
 
+Maven Central publishes only the core library artifact. Runnable samples are repository-only and run with Maven profile `samples`.
+
 ## Documentation
 
 Documentation lives in `docs/`.
@@ -13,13 +15,14 @@ Documentation lives in `docs/`.
 - [Documentation hub](docs/README.md)
 - [Quick start from Git source](docs/getting-started.md#option-b-use-this-git-repository)
 - [Use from Maven Central](docs/getting-started.md#option-a-use-maven-central-online)
+- [Samples usage](docs/samples.md)
 - [Selenium Sample](docs/selenium-integration.md)
 
 ## Project structure
 
 - `src/main/java/com/DeathByCaptcha/`
   - Core client library (`Client`, `HttpClient`, `SocketClient`, models, and exceptions).
-- `src/main/java/examples/`
+- `samples/src/main/java/examples/`
   - Runnable examples for reCAPTCHA v2/v3, image coordinates, image groups, and Selenium integration.
 - `src/test/java/com/DeathByCaptcha/`
   - Unit tests for core client functionality.
@@ -34,6 +37,7 @@ Documentation lives in `docs/`.
   - `publish-maven-central.yml`: Automated publishing on release.
 - `docs/`
   - `getting-started.md`: Installation and setup guide.
+  - `samples.md`: How to compile and run repository samples with `-Psamples`.
   - `library-usage.md`: API usage and supported CAPTCHA types.
   - `selenium-integration.md`: Selenium automation guide.
   - `ci-and-coverage.md`: CI/CD configuration details.
@@ -41,10 +45,13 @@ Documentation lives in `docs/`.
 
 ## Requirements
 
-- Java 25 LTS (recommended)
-- Java 17/21 (supported)
-- Maven 3.9+
-- Valid DeathByCaptcha credentials
+See [Requirements](docs/README.md#requirements) in the documentation hub.
+
+## Quick reference
+
+- **Java**: 25 LTS (recommended) or 17/21 (supported).
+- **Maven**: 3.9+.
+- **Credentials**: Active DeathByCaptcha account.
 
 ## Continuous Integration
 

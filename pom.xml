@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>DeathByCaptcha library for Java</name>
-  <description>DeathByCaptcha Java library v4.6.9 (unified package: core client library + full samples + Selenium integration in one artifact)</description>
+  <description>DeathByCaptcha Java library v4.6.9 (core client library artifact)</description>
   <url>https://github.com/deathbycaptcha/deathbycaptcha-api-client-java</url>
 
   <licenses>
@@ -45,7 +45,6 @@
     <maven.compiler.target>${java.release}</maven.compiler.target>
     <maven.compiler.release>${java.release}</maven.compiler.release>
     <selenium.version>4.2.1</selenium.version>
-    <exec.mainClass>examples.Program</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -77,31 +76,13 @@
           <compilerArgs>
             <arg>-Xlint:deprecation</arg>
           </compilerArgs>
-       </configuration>
+        </configuration>
       </plugin>
 
       <!-- Maven JAR Plugin -->
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.2.0</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>examples.Program</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-
-      <!-- Maven Exec Plugin for running examples -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <mainClass>${exec.mainClass}</mainClass>
-        </configuration>
       </plugin>
 
       <!-- Maven Javadoc Plugin -->
@@ -223,4 +204,44 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>samples</id>
+      <properties>
+        <exec.mainClass>examples.Program</exec.mainClass>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.6.0</version>
+            <executions>
+              <execution>
+                <id>add-samples-source</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>samples/src/main/java</source>
+                  </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+              <mainClass>${exec.mainClass}</mainClass>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

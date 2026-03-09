@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## [4.7.0] - 2026-03-09
+
+### Changed
+
+- Release focused on repository organization and documentation updates for samples (`-Psamples` workflow); no functional API changes in core client behavior.
+- Bumped library/version metadata from `4.6.9` to `4.7.0` in:
+  - `pom.xml`
+  - `src/main/java/com/DeathByCaptcha/Client.java` (`API_VERSION`)
+  - `src/test/java/com/DeathByCaptcha/ClientTest.java`
+  - `src/test/java/com/DeathByCaptcha/OnlineMavenBalanceIntegrationTest.java`
+  - `docs/getting-started.md`
+
 ## [4.6.9] - 2026-03-06
 
 ### Changed

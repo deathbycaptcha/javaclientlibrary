@@ -6,11 +6,11 @@
 
   <groupId>io.github.deathbycaptcha</groupId>
   <artifactId>deathbycaptcha-java-library</artifactId>
-  <version>4.6.9</version>
+  <version>4.7.0</version>
   <packaging>jar</packaging>
 
   <name>DeathByCaptcha library for Java</name>
-  <description>DeathByCaptcha Java library v4.6.9 (core client library artifact)</description>
+  <description>DeathByCaptcha Java library v4.7.0 (core client library artifact)</description>
   <url>https://github.com/deathbycaptcha/deathbycaptcha-api-client-java</url>
 
   <licenses>
